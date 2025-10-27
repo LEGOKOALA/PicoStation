@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://c04o2rlv3fs11"]
+
+[ext_resource type="Script" uid="uid://c5xsyr2dqviyi" path="res://Scripts/ExamplePlayer.cs" id="1_hq2r4"]
+[ext_resource type="Texture2D" uid="uid://cpu4hsxghf08s" path="res://Assets/ExampleSprite.png" id="1_t0dbt"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hq2r4"]
+radius = 7.0
+height = 20.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lr3g7"]
+atlas = ExtResource("1_t0dbt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1422"]
+atlas = ExtResource("1_t0dbt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtyun"]
+atlas = ExtResource("1_t0dbt")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oa50j"]
+atlas = ExtResource("1_t0dbt")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ueryr"]
+atlas = ExtResource("1_t0dbt")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b12ed"]
+atlas = ExtResource("1_t0dbt")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y2eu7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lr3g7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1422")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtyun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oa50j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ueryr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b12ed")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ExamplePlayer" type="CharacterBody2D"]
+script = ExtResource("1_hq2r4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_hq2r4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -6)
+sprite_frames = SubResource("SpriteFrames_y2eu7")
+autoplay = "default"
