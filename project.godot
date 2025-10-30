@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Multiplayer Project"
-run/main_scene="uid://b0otwc4uc1odk"
+run/main_scene="uid://c4vf4yojiqjmi"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 
 [display]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://vman2vbbgasq"]
+[gd_scene load_steps=11 format=3 uid="uid://dd6w8mdnfyf3j"]
 
 [ext_resource type="Script" uid="uid://c6xnws8xucrkd" path="res://Scripts/Player_movement.cs" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://beh3bwpi5xf2a" path="res://Assets/ExampleSprite.png" id="2_81vce"]
@@ -54,18 +54,18 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xcc6r"]
-radius = 19.0
-height = 52.0
+radius = 7.0
+height = 18.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_kyqiw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, -22.5)
-scale = Vector2(2.53125, 2.59375)
+position = Vector2(0, -8)
+scale = Vector2(1.07813, 1.09375)
 sprite_frames = SubResource("SpriteFrames_tckib")
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -7)
+position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_xcc6r")
