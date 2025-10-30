@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b43i2woldo1w2" path="res://Assets/PS_Tileset_15.png" id="2_buwwh"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_gl4sr"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rvkij"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_buwwh"]
 texture = ExtResource("2_buwwh")
 1:0/0 = 0
 2:0/0 = 0
@@ -328,7 +328,7 @@ texture = ExtResource("2_buwwh")
 29:16/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_e512q"]
-sources/0 = SubResource("TileSetAtlasSource_rvkij")
+sources/0 = SubResource("TileSetAtlasSource_buwwh")
 
 [node name="ExampleLevel" type="Node2D"]
 
