@@ -28,11 +28,16 @@ public partial class Player_movement : CharacterBody2D
 		if (direction != Vector2.Zero)
 		{
 			velocity.X = direction.X * Speed;
+			
+			//sprinting
+			if (Input.IsActionPressed("p1_sprint"))
+			velocity.X *= 3;
 		}
 		else
 		{
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 		}
+
 
 		Velocity = velocity;
 		MoveAndSlide();
