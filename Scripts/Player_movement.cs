@@ -4,16 +4,31 @@ using System;
 public partial class Player_movement : CharacterBody2D
 {
 	public const float Speed = 300.0f;
-	public const float JumpVelocity = -400.0f;
+	public float JumpVelocity = -400.0f;
+	public float SprintMultiplier = 1.5f;
 
+	private float gravity;
+	private int gravityDirection = 1; // 1 = normal, -1 = flipped
+	
+	public override void _Ready()
+	{
+		gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
+	}
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
 
+ // Handle gravity flipping input
+		if (Input.IsActionJustPressed("p1_flip"))
+		{
+			gravityDirection = -1;
+			JumpVelocity *= 1;
+		}
 		// Add the gravity.
 		if (!IsOnFloor())
 		{
-			velocity += GetGravity() * (float)delta;
+			velocity.Y += gravity * gravityDirection * (float)delta;
 		}
 
 		// Handle Jump.
