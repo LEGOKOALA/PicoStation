@@ -29,10 +29,11 @@ public partial class Player_movement : CharacterBody2D
 		velocity += gravity * (float)delta;
 
 		// Handle Jump (direction depends on flip state)
-		if (Input.IsActionJustPressed("p1_jump") && IsOnFloor())
+		if (Input.IsActionJustPressed("p1_jump") && (IsOnFloor() | IsOnCeiling()))
 		{
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
 		}
+		
 
 		// Horizontal movement
 		Vector2 direction = Input.GetVector("p1_left", "p1_right", "p1_up", "p1_down");
