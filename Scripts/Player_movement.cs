@@ -7,8 +7,8 @@ public partial class Player_movement : CharacterBody2D
 	public const float JumpVelocity = 400.0f; // made positive for easier flipping logic
 
 	private bool gravityFlipped = false; // Tracks whether gravity is flipped
-
 	private float gravity;
+	
 	private int gravityDirection = 1; // 1 = normal, -1 = flipped
 	
 	public override void _Ready()
@@ -20,7 +20,7 @@ public partial class Player_movement : CharacterBody2D
 	{
 		Vector2 velocity = Velocity;
 
-		// Toggle gravity flip on key press (not hold)
+		
 		if (Input.IsActionJustPressed("p1_flip"))
 		{
 			gravityFlipped = !gravityFlipped;
@@ -29,17 +29,13 @@ public partial class Player_movement : CharacterBody2D
 			Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
 		}
 
-		// Apply gravity (always)
-		Vector2 gravity = GetGravity();
-		if (gravityFlipped)
-			gravity *= -1;
+		velocity.Y += (gravityFlipped ? -gravity : gravity) * (float)delta;
 
-		velocity += gravity * (float)delta;
-
-		// Handle Jump (direction depends on flip state)
-		if (Input.IsActionJustPressed("p1_jump") && IsOnFloor())
+		bool isGrounded = gravityFlipped ? IsOnCeiling() : IsOnFloor();
+		
+		if (Input.IsActionJustPressed("p1_jump") && isGrounded)
 		{
-			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
+		velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
 		}
 
 		// Horizontal movement
@@ -59,5 +55,5 @@ public partial class Player_movement : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
-	}
+		}
 }
