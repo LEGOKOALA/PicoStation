@@ -49,7 +49,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_bwd6h")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -64,10 +64,8 @@ script = ExtResource("1_kyqiw")
 position = Vector2(0, -8)
 scale = Vector2(1.07813, 1.09375)
 sprite_frames = SubResource("SpriteFrames_tckib")
-autoplay = "default"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_xcc6r")
-
-[node name="Flip_cooldown" type="Timer" parent="."]
