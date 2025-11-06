@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=4 uid="uid://b0otwc4uc1odk"]
+[gd_scene load_steps=7 format=4 uid="uid://b0otwc4uc1odk"]
 
+[ext_resource type="Script" uid="uid://cpfspy4q0mntq" path="res://Scripts/Game.cs" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://vman2vbbgasq" path="res://Scenes/Player.tscn" id="1_7ssav"]
-[ext_resource type="Texture2D" uid="uid://dwd4b1bd13h0c" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
+[ext_resource type="Texture2D" uid="uid://qer7qygqrffe" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_3dryh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wowpa"]
@@ -374,6 +375,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_wowpa")
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_3dryh")
 
 [node name="Player" parent="." instance=ExtResource("1_7ssav")]
 
@@ -385,3 +387,17 @@ tile_set = SubResource("TileSet_i6g32")
 
 [node name="Key" parent="." instance=ExtResource("3_3dryh")]
 position = Vector2(267, -84)
+
+[node name="blackout" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="blackout"]
+visible = false
+offset_left = -190.0
+offset_top = -309.0
+offset_right = 2151.0
+offset_bottom = 1395.0
+color = Color(0, 0, 0, 0.65098)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
