@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Player_movement : CharacterBody2D
+public partial class Player4_movement : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 	public const float JumpVelocity = 400.0f;
@@ -26,7 +26,7 @@ public partial class Player_movement : CharacterBody2D
 			Flip_timer -= (float)delta;
 
 		// Toggle gravity flip on key press
-		if (Input.IsActionJustPressed("p1_flip") && Flip_timer <= 0)
+		if (Input.IsActionJustPressed("p4_flip") && Flip_timer <= 0)
 		{
 			gravityFlipped = !gravityFlipped;
 			Flip_timer = Ability_cooldown;
@@ -43,20 +43,20 @@ public partial class Player_movement : CharacterBody2D
 		velocity += gravity * (float)delta;
 
 		// Handle jump (works whether gravity is flipped or not)
-		if (Input.IsActionJustPressed("p1_jump") && (IsOnFloor() || IsOnCeiling()))
+		if (Input.IsActionJustPressed("p4_jump") && (IsOnFloor() || IsOnCeiling()))
 		{
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
 		}
 
 		// Horizontal movement
-		Vector2 direction = Input.GetVector("p1_left", "p1_right", "p1_up", "p1_down");
+		Vector2 direction = Input.GetVector("p4_left", "p4_right", "p4_up", "p4_down");
 
 		if (direction != Vector2.Zero)
 		{
 			velocity.X = direction.X * Speed;
 
 			// Sprinting
-			if (Input.IsActionPressed("p1_sprint"))
+			if (Input.IsActionPressed("p4_sprint"))
 				velocity.X *= 3;
 
 			//  Flip the sprite horizontally based on movement direction
