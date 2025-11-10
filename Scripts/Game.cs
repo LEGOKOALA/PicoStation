@@ -8,8 +8,14 @@ public partial class Main : Node
 
 	public override void _Ready()
 	{
+		
+		SetProcess(true);
+
+		// Get nodes
 		blackout = GetNode<ColorRect>("CanvasLayer/ColorRect");
 		blackoutTimer = GetNode<Timer>("Timer");
+
+		
 		blackoutTimer.Timeout += OnBlackoutTimeout;
 	}
 
@@ -18,13 +24,13 @@ public partial class Main : Node
 		// Press B to start blackout
 		if (Input.IsActionJustPressed("toggle_blackout"))
 		{
-			blackout.Visible = true;       // show black screen
-			blackoutTimer.Start();         // start 5 second timer
+			blackout.Visible = true;  // show black screen
+			blackoutTimer.Start();    // start 5 second timer
 		}
 	}
 
 	private void OnBlackoutTimeout()
 	{
-		blackout.Visible = false;          // hide black screen
+		blackout.Visible = false;     // hide black screen
 	}
 }
