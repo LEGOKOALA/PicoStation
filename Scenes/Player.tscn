@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dd6w8mdnfyf3j"]
+[gd_scene load_steps=11 format=3 uid="uid://vman2vbbgasq"]
 
 [ext_resource type="Script" uid="uid://c6xnws8xucrkd" path="res://Scripts/Player_movement.cs" id="1_kyqiw"]
-[ext_resource type="Texture2D" uid="uid://brgb5vosvdd1t" path="res://Assets/ExampleSprite.png" id="2_81vce"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wuut2"]
 atlas = ExtResource("2_81vce")
@@ -49,7 +48,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_bwd6h")
 }],
 "loop": true,
-"name": &"default",
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -64,7 +63,7 @@ script = ExtResource("1_kyqiw")
 position = Vector2(0, -8)
 scale = Vector2(1.07813, 1.09375)
 sprite_frames = SubResource("SpriteFrames_tckib")
-autoplay = "default"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
