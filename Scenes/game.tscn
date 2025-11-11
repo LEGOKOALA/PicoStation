@@ -1,12 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://b0otwc4uc1odk"]
+[gd_scene load_steps=6 format=4 uid="uid://b0otwc4uc1odk"]
 
-[ext_resource type="PackedScene" uid="uid://vman2vbbgasq" path="res://Scenes/Player1.tscn" id="1_7ssav"]
 [ext_resource type="Script" uid="uid://cbkkyxwfs4vmw" path="res://Scripts/Main.cs" id="1_wrm1d"]
 [ext_resource type="Texture2D" uid="uid://bhfgwcpfep5v8" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_3dryh"]
-[ext_resource type="PackedScene" uid="uid://xrfpgkmasruj" path="res://Scenes/Player2.tscn" id="5_1l0tm"]
-[ext_resource type="PackedScene" uid="uid://cce0ldlbt83gj" path="res://Scenes/Player3.tscn" id="6_v158k"]
-[ext_resource type="PackedScene" uid="uid://2bnrdb7sudhp" path="res://Scenes/Player4.tscn" id="7_h4fw4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wowpa"]
 texture = ExtResource("2_wrm1d")
@@ -388,15 +384,3 @@ tile_set = SubResource("TileSet_i6g32")
 
 [node name="Key" parent="." instance=ExtResource("3_3dryh")]
 position = Vector2(267, -84)
-
-[node name="Player" parent="." instance=ExtResource("1_7ssav")]
-position = Vector2(-216, -6)
-
-[node name="Player2" parent="." instance=ExtResource("5_1l0tm")]
-position = Vector2(-190, -2)
-
-[node name="Player3" parent="." instance=ExtResource("6_v158k")]
-position = Vector2(-155, -4)
-
-[node name="Player4" parent="." instance=ExtResource("7_h4fw4")]
-position = Vector2(-110, -6)
