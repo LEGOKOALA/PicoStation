@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://vman2vbbgasq" path="res://Scenes/Player1.tscn" id="1_7ssav"]
 [ext_resource type="Script" uid="uid://cbkkyxwfs4vmw" path="res://Scripts/Main.cs" id="1_wrm1d"]
-[ext_resource type="Texture2D" uid="uid://bhfgwcpfep5v8" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
+[ext_resource type="Texture2D" uid="uid://dwd4b1bd13h0c" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_3dryh"]
 [ext_resource type="PackedScene" uid="uid://xrfpgkmasruj" path="res://Scenes/Player2.tscn" id="5_1l0tm"]
 [ext_resource type="PackedScene" uid="uid://cce0ldlbt83gj" path="res://Scenes/Player3.tscn" id="6_v158k"]

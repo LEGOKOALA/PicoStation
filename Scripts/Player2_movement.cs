@@ -77,7 +77,13 @@ public partial class Player2_movement : CharacterBody2D
 			if (sprite.IsPlaying())
 				sprite.Stop();
 		}
-
+		
+		if (Input.IsActionJustPressed("p2_brick"))
+		{
+			this.SetCollisionLayerValue(9, true);
+		}
+		
+		
 		Velocity = velocity;
 		MoveAndSlide();
 	}
