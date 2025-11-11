@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bf4u6vognl0jx"]
+
+[ext_resource type="Script" uid="uid://cri12ignu2aqq" path="res://Scripts/Door.cs" id="1_p0e35"]
+[ext_resource type="Texture2D" uid="uid://e7ykp8crolre" path="res://Assets/Door.png" id="1_w6aom"]
+[ext_resource type="Texture2D" uid="uid://dc4wddxi1e5ct" path="res://Assets/pixil-frame-0 (1).png" id="3_fahql"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab4ky"]
+atlas = ExtResource("1_w6aom")
+region = Rect2(400, 0, 400, 1200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a43ba"]
+atlas = ExtResource("3_fahql")
+region = Rect2(341, 0, 341, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_burcv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ab4ky")
+}],
+"loop": true,
+"name": &"Closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a43ba")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p0e35"]
+radius = 26.0
+height = 94.0
+
+[node name="Door" type="Area2D"]
+script = ExtResource("1_p0e35")
+NextScenePath = "res://Scenes/Level_2.tscn"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 5)
+scale = Vector2(0.152813, 0.147448)
+sprite_frames = SubResource("SpriteFrames_burcv")
+animation = &"Closed"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_p0e35")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

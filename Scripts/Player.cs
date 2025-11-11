@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player : CharacterBody2D
 {
@@ -17,6 +18,11 @@ public partial class Player : CharacterBody2D
 		// Gets the AnimatedSprite2D node
 		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 	}
+
+	private HashSet<string> collectedKeys = new();
+
+	// 🟢 Added: Track if the player is jumping
+	public bool IsJumping { get; private set; } = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
@@ -80,5 +86,25 @@ public partial class Player : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	// --- Key handling ---
+	public void CollectKey(string keyId)
+	{
+		if (collectedKeys.Add(keyId))
+			GD.Print($"Collected key: {keyId}");
+		else
+			GD.Print($"Already have key: {keyId}");
+	}
+
+	public bool HasKey(string keyId)
+	{
+		return collectedKeys.Contains(keyId);
+	}
+
+	public void ConsumeKey(string keyId)
+	{
+		if (collectedKeys.Remove(keyId))
+			GD.Print($"Used key: {keyId}");
 	}
 }
