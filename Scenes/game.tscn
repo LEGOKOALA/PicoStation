@@ -392,14 +392,20 @@ position = Vector2(267, -84)
 
 [node name="ColorRect" type="ColorRect" parent="blackout"]
 visible = false
-modulate = Color(0.054902, 0.054902, 0.054902, 0.847059)
-self_modulate = Color(0.0235294, 0.0235294, 0.0235294, 0.905882)
-offset_left = -1324.0
-offset_top = -960.0
-offset_right = 2151.0
-offset_bottom = 1395.0
-color = Color(0, 0, 0, 0.87451)
+modulate = Color(0, 0, 0, 0.847059)
+self_modulate = Color(0, 0, 0, 0.905882)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
-[node name="Timer" type="Timer" parent="."]
+[node name="BlackoutTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="RandomTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="BlackoutTimer" to="." method="_on_timer_timeout"]
