@@ -376,10 +376,6 @@ sources/0 = SubResource("TileSetAtlasSource_apq5t")
 
 [node name="Level_2" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("2_ostk4")]
-z_index = 1
-position = Vector2(-148, 14)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -393,3 +389,6 @@ position = Vector2(-229, -166)
 position = Vector2(-9, -6)
 RequiredKeyId = "default"
 NextScenePath = ""
+
+[node name="Player" parent="." instance=ExtResource("2_ostk4")]
+position = Vector2(-173, 17)
