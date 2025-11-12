@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=4 uid="uid://b0otwc4uc1odk"]
 
-[ext_resource type="Script" uid="uid://cpfspy4q0mntq" path="res://Scripts/Game.cs" id="1_3dryh"]
-[ext_resource type="PackedScene" uid="uid://vman2vbbgasq" path="res://Scenes/Player.tscn" id="1_7ssav"]
-[ext_resource type="Texture2D" uid="uid://qer7qygqrffe" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
-[ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_3dryh"]
+[ext_resource type="Script" uid="uid://cpfspy4q0mntq" path="res://Scripts/Game.cs" id="1_kldst"]
+[ext_resource type="PackedScene" uid="uid://vman2vbbgasq" path="res://Scenes/Player.tscn" id="2_b2bpf"]
+[ext_resource type="Texture2D" uid="uid://qer7qygqrffe" path="res://Assets/PS_Tileset_15.png" id="3_7lihs"]
+[ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="4_fgofq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wowpa"]
-texture = ExtResource("2_wrm1d")
+texture = ExtResource("3_7lihs")
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -375,9 +375,9 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_wowpa")
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_3dryh")
+script = ExtResource("1_kldst")
 
-[node name="Player" parent="." instance=ExtResource("1_7ssav")]
+[node name="Player" parent="." instance=ExtResource("2_b2bpf")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -385,27 +385,5 @@ script = ExtResource("1_3dryh")
 tile_map_data = PackedByteArray("AADy/wIAAAAJAAAAAADz/wIAAAAKAAAAAAD0/wIAAAALAAAAAAD1/wIAAAAJAAAAAAD2/wIAAAAKAAAAAAD3/wIAAAALAAAAAAD4/wIAAAAJAAAAAAD5/wIAAAAKAAAAAAD6/wIAAAALAAAAAAD7/wIAAAAJAAAAAAD8/wIAAAAKAAAAAAD9/wIAAAALAAAAAAABAAIAAAAJAAAAAAACAAIAAAAKAAAAAAADAAIAAAALAAAAAAD+/wIAAAAJAAAAAAD//wIAAAAKAAAAAAAAAAIAAAALAAAAAAAEAAIAAAAJAAAAAAAFAAIAAAAKAAAAAAAGAAIAAAALAAAAAAAHAAIAAAAJAAAAAAAIAAIAAAAKAAAAAAAJAAIAAAALAAAAAAAKAAIAAAAJAAAAAAALAAIAAAAKAAAAAAAMAAIAAAALAAAAAAANAAIAAAAJAAAAAAAOAAIAAAAKAAAAAAAPAAIAAAALAAAAAAAQAAIAAAAJAAAAAAARAAIAAAAKAAAAAAASAAIAAAALAAAAAADv/wIAAAAJAAAAAADw/wIAAAAKAAAAAADx/wIAAAALAAAAAADv////AAAGAAAAAADv/wAAAAAGAAEAAADv/wEAAAAGAAIAAADv//z/AAAGAAAAAADv//3/AAAGAAEAAADv//7/AAAGAAIAAADv//n/AAAGAAAAAADv//r/AAAGAAEAAADv//v/AAAGAAIAAADv//b/AAAGAAAAAADv//f/AAAGAAEAAADv//j/AAAGAAIAAADv//P/AAAGAAAAAADv//T/AAAGAAEAAADv//X/AAAGAAIAAADv//D/AAAGAAAAAADv//H/AAAGAAEAAADv//L/AAAGAAIAAADv/+3/AAAGAAAAAADv/+7/AAAGAAEAAADv/+//AAAGAAIAAAASAP//AAAGAAAAAAASAAAAAAAGAAEAAAASAAEAAAAGAAIAAAASAPz/AAAGAAAAAAASAP3/AAAGAAEAAAASAP7/AAAGAAIAAAASAPn/AAAGAAAAAAASAPr/AAAGAAEAAAASAPv/AAAGAAIAAAASAPb/AAAGAAAAAAASAPf/AAAGAAEAAAASAPj/AAAGAAIAAAASAPP/AAAGAAAAAAASAPT/AAAGAAEAAAASAPX/AAAGAAIAAAASAPD/AAAGAAAAAAASAPH/AAAGAAEAAAASAPL/AAAGAAIAAAASAO3/AAAGAAAAAAASAO7/AAAGAAEAAAASAO//AAAGAAIAAADv/+z/AAAJAAAAAADw/+z/AAAKAAAAAADx/+z/AAALAAAAAADy/+z/AAAJAAAAAADz/+z/AAAKAAAAAAD0/+z/AAALAAAAAAD1/+z/AAAJAAAAAAD2/+z/AAAKAAAAAAD3/+z/AAALAAAAAAD4/+z/AAAJAAAAAAD5/+z/AAAKAAAAAAD6/+z/AAALAAAAAAD7/+z/AAAJAAAAAAD8/+z/AAAKAAAAAAD9/+z/AAALAAAAAAD+/+z/AAAJAAAAAAD//+z/AAAKAAAAAAAAAOz/AAALAAAAAAABAOz/AAAJAAAAAAACAOz/AAAKAAAAAAADAOz/AAALAAAAAAAEAOz/AAAJAAAAAAAFAOz/AAAKAAAAAAAGAOz/AAALAAAAAAAHAOz/AAAJAAAAAAAIAOz/AAAKAAAAAAAJAOz/AAALAAAAAAAKAOz/AAAJAAAAAAALAOz/AAAKAAAAAAAMAOz/AAALAAAAAAANAOz/AAAJAAAAAAAOAOz/AAAKAAAAAAAPAOz/AAALAAAAAAAQAOz/AAAJAAAAAAARAOz/AAAKAAAAAAASAOz/AAALAAAAAAABAAAAAAAQAAIAAAACAAAAAAARAAIAAAADAAAAAAASAAIAAAAFAP7/AAAQAAIAAAAGAP7/AAARAAIAAAAHAP7/AAASAAIAAAAJAPz/AAAQAAIAAAAKAPz/AAARAAIAAAALAPz/AAASAAIAAAANAP//AAAGAAAAAAANAAAAAAAGAAEAAAANAAEAAAAGAAIAAAANAP3/AAAGAAIAAAANAP7/AAAGAAIAAAANAPv/AAAGAAAAAAANAPz/AAAGAAEAAAA=")
 tile_set = SubResource("TileSet_i6g32")
 
-[node name="Key" parent="." instance=ExtResource("3_3dryh")]
+[node name="Key" parent="." instance=ExtResource("4_fgofq")]
 position = Vector2(267, -84)
-
-[node name="blackout" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="blackout"]
-visible = false
-modulate = Color(0, 0, 0, 0.847059)
-self_modulate = Color(0, 0, 0, 0.905882)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="BlackoutTimer" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-
-[node name="RandomTimer" type="Timer" parent="."]
-one_shot = true
-
-[connection signal="timeout" from="BlackoutTimer" to="." method="_on_timer_timeout"]
