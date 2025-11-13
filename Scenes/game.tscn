@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=4 uid="uid://b0otwc4uc1odk"]
+[gd_scene load_steps=7 format=4 uid="uid://f241thyw685q"]
 
-[ext_resource type="Script" uid="uid://cpfspy4q0mntq" path="res://Scripts/Game.cs" id="1_kldst"]
+[ext_resource type="Script" uid="uid://o3gaud3ajwtg" path="res://Scripts/Game.cs" id="1_kldst"]
 [ext_resource type="PackedScene" uid="uid://vman2vbbgasq" path="res://Scenes/Player.tscn" id="2_b2bpf"]
 [ext_resource type="Texture2D" uid="uid://qer7qygqrffe" path="res://Assets/PS_Tileset_15.png" id="3_7lihs"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="4_fgofq"]
@@ -387,3 +387,21 @@ tile_set = SubResource("TileSet_i6g32")
 
 [node name="Key" parent="." instance=ExtResource("4_fgofq")]
 position = Vector2(267, -84)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Blackout" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.945098)
+
+[node name="BlackoutTimer" type="Timer" parent="."]
+process_mode = 3
+one_shot = true
+
+[node name="DurationTimer" type="Timer" parent="."]
+process_mode = 3
+one_shot = true
