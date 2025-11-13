@@ -15,17 +15,11 @@ public partial class Player1_movement : CharacterBody2D
 	private float Brick_timer = 0.0f;
 	
 	private bool brickMode = false; // tracks if brick is activated
-	private bool gravityFlipped = false;
-	private AnimatedSprite2D sprite;
 
-	private float abilityCooldown = 1.0f;
-	private float flipTimer = 0f;
 
 	// Tracks collected keys
 	private HashSet<string> collectedKeys = new();
 
-	// Tracks if the player is jumping
-	public bool IsJumping { get; private set; } = false;
 
 	public override void _Ready()
 	{
@@ -50,32 +44,25 @@ public partial class Player1_movement : CharacterBody2D
 		// Toggle gravity flip on key press w/ cooldown
 		if (Input.IsActionJustPressed("p1_flip") && Flip_timer <= 0)
 		{
-			gravityFlipped = !gravityFlipped;
-			Flip_timer = Ability_cooldown;
+			FlipGravity();
+		}
 
 		// Update cooldown timer
-		if (flipTimer > 0)
-			flipTimer -= (float)delta;
-
-		// Gravity flip
-		if (Input.IsActionJustPressed("p1_flip") && flipTimer <= 0)
-			FlipGravity();
-
+		if (Flip_timer > 0)
+			Flip_timer -= (float)delta;
+			
+			
 		// Apply gravity (flip if inverted)
 		Vector2 gravity = GetGravity();
 		if (gravityFlipped)
 			gravity *= -1;
 		velocity += gravity * (float)delta;
 
+
 		// Handle jump (works whether gravity is flipped or not)
 		if (Input.IsActionJustPressed("p1_jump") && (IsOnFloor() || IsOnCeiling()) && brickMode == false)
 		{
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
-			IsJumping = true;
-		}
-		else if (IsOnFloor() || IsOnCeiling())
-		{
-			IsJumping = false;
 		}
 
 		// Horizontal movement
@@ -94,7 +81,8 @@ public partial class Player1_movement : CharacterBody2D
 				sprite.FlipH = true;
 			else if (direction.X > 0)
 				sprite.FlipH = false;
-
+				
+				
 			// Play walk animation
 			if (sprite.Animation != "walk" || !sprite.IsPlaying())
 				sprite.Play("walk");
@@ -143,15 +131,14 @@ public partial class Player1_movement : CharacterBody2D
 		SetCollisionMaskValue(4, false);
 		SetCollisionMaskValue(5, false);
 	}
-
-	// --- Flip gravity ---
-	private void FlipGravity()
+	
+	public void FlipGravity()
 	{
 		gravityFlipped = !gravityFlipped;
-		flipTimer = abilityCooldown;
+		Flip_timer = Ability_cooldown;
 		Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
 	}
-
+	
 	// --- Key handling ---
 	public void CollectKey(string keyId)
 	{

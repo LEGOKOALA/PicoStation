@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Player3_movement : CharacterBody2D
 {
@@ -14,19 +15,26 @@ public partial class Player3_movement : CharacterBody2D
 	private float Brick_timer = 0.0f;
 	
 	private bool brickMode = false; // tracks if brick is activated
-	private bool gravityFlipped = false;
-	private AnimatedSprite2D sprite;
 
-	private float abilityCooldown = 1.0f;
-	private float flipTimer = 0f;
+
+	// Tracks collected keys
+	private HashSet<string> collectedKeys = new();
+
 
 	public override void _Ready()
 	{
-		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		// Get the AnimatedSprite2D node
+		sprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+		if (sprite == null)
+			GD.PrintErr("❌ Could not find AnimatedSprite2D node. Check node name!");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// Safety check: stop code if sprite missing
+		if (sprite == null)
+			return;
+
 		Vector2 velocity = Velocity;
 		if (Flip_timer > 0)
 		// needs to be a float to have same data type as timers
@@ -36,19 +44,20 @@ public partial class Player3_movement : CharacterBody2D
 		// Toggle gravity flip on key press w/ cooldown
 		if (Input.IsActionJustPressed("p3_flip") && Flip_timer <= 0)
 		{
-			gravityFlipped = !gravityFlipped;
-			Flip_timer = Ability_cooldown;
-
-			// Visually flip the player vertically
-			Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
+			FlipGravity();
 		}
 
-		// Apply gravity
+		// Update cooldown timer
+		if (Flip_timer > 0)
+			Flip_timer -= (float)delta;
+			
+			
+		// Apply gravity (flip if inverted)
 		Vector2 gravity = GetGravity();
 		if (gravityFlipped)
 			gravity *= -1;
-
 		velocity += gravity * (float)delta;
+
 
 		// Handle jump (works whether gravity is flipped or not)
 		if (Input.IsActionJustPressed("p3_jump") && (IsOnFloor() || IsOnCeiling()) && brickMode == false)
@@ -57,18 +66,7 @@ public partial class Player3_movement : CharacterBody2D
 		}
 
 		// Horizontal movement
-
-		if (flipTimer > 0)
-			flipTimer -= (float)delta;
-
 		Vector2 direction = Input.GetVector("p3_left", "p3_right", "p3_up", "p3_down");
-		velocity.X = direction.X * Speed;
-
-		if (Input.IsActionPressed("p3_sprint"))
-			velocity.X *= 3;
-
-		if (direction.X < 0) sprite.FlipH = true;
-		else if (direction.X > 0) sprite.FlipH = false;
 
 		if (direction != Vector2.Zero && brickMode == false)
 		{
@@ -78,18 +76,23 @@ public partial class Player3_movement : CharacterBody2D
 			if (Input.IsActionPressed("p3_sprint"))
 				velocity.X *= 1.75f;
 
-			//  Flip the sprite horizontally based on movement direction
+			// Flip sprite direction
 			if (direction.X < 0)
 				sprite.FlipH = true;
 			else if (direction.X > 0)
 				sprite.FlipH = false;
-
-			//  Play the walk animation if not already playing
+				
+				
+			// Play walk animation
 			if (sprite.Animation != "walk" || !sprite.IsPlaying())
 				sprite.Play("walk");
 		}
 		else
 		{
+			// Slow down when not moving
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+
+			// Stop walking animation
 			if (sprite.IsPlaying())
 				sprite.Stop();
 		}
@@ -111,17 +114,6 @@ public partial class Player3_movement : CharacterBody2D
 		}
 		
 		
-
-		if (Input.IsActionJustPressed("p3_flip") && flipTimer <= 0)
-			FlipGravity();
-
-		if (Input.IsActionJustPressed("p3_jump") && (IsOnFloor() || IsOnCeiling()))
-			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
-
-		Vector2 gravity = GetGravity();
-		if (gravityFlipped) gravity *= -1;
-		velocity += gravity * (float)delta;
-
 		Velocity = velocity;
 		MoveAndSlide();
 	}
@@ -139,11 +131,31 @@ public partial class Player3_movement : CharacterBody2D
 		SetCollisionMaskValue(4, false);
 		SetCollisionMaskValue(5, false);
 	}
-
-	private void FlipGravity()
+	
+	public void FlipGravity()
 	{
 		gravityFlipped = !gravityFlipped;
-		flipTimer = abilityCooldown;
+		Flip_timer = Ability_cooldown;
 		Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
+	}
+	
+	// --- Key handling ---
+	public void CollectKey(string keyId)
+	{
+		if (collectedKeys.Add(keyId))
+			GD.Print($"Collected key: {keyId}");
+		else
+			GD.Print($"Already have key: {keyId}");
+	}
+
+	public bool HasKey(string keyId)
+	{
+		return collectedKeys.Contains(keyId);
+	}
+
+	public void ConsumeKey(string keyId)
+	{
+		if (collectedKeys.Remove(keyId))
+			GD.Print($"Used key: {keyId}");
 	}
 }
