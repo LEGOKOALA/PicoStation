@@ -14,7 +14,7 @@ public partial class Door : Area2D
 	private AnimatedSprite2D _animatedDoor;
 	private CollisionShape2D _solidCollider;
 	private bool _isOpen = false;
-	private HashSet<Player> _playersInside = new();
+	private HashSet<Player1_movement> _playersInside = new();
 
 	public override void _Ready()
 	{
@@ -34,7 +34,7 @@ public partial class Door : Area2D
 
 	private void OnBodyEntered(Node body)
 	{
-		if (body is not Player player)
+		if (body is not Player1_movement player)
 			return;
 
 		_playersInside.Add(player);
@@ -65,7 +65,7 @@ public partial class Door : Area2D
 
 	private void OnBodyExited(Node body)
 	{
-		if (body is Player player)
+		if (body is Player1_movement player)
 			_playersInside.Remove(player);
 	}
 

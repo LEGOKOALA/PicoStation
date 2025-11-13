@@ -2,56 +2,62 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Player : CharacterBody2D
+public partial class Player1_movement : CharacterBody2D
 {
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = 400.0f;
+	public const float Speed = 300f;
+	public const float JumpVelocity = 400f;
 
-	private bool gravityFlipped = false; // Tracks whether gravity is flipped
-	private AnimatedSprite2D sprite;     // Reference to the player's sprite
-	
-	private float Ability_cooldown = 1.0f;
-	private float Flip_timer = 0.0f;
+	private bool gravityFlipped = false;
+	private AnimatedSprite2D sprite;
+
+	private float abilityCooldown = 1.0f;
+	private float flipTimer = 0f;
+
+	// Tracks collected keys
+	private HashSet<string> collectedKeys = new();
+
+	// Tracks if the player is jumping
+	public bool IsJumping { get; private set; } = false;
 
 	public override void _Ready()
 	{
-		// Gets the AnimatedSprite2D node
-		sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		// Get the AnimatedSprite2D node
+		sprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
+		if (sprite == null)
+			GD.PrintErr("❌ Could not find AnimatedSprite2D node. Check node name!");
 	}
-
-	private HashSet<string> collectedKeys = new();
-
-	// 🟢 Added: Track if the player is jumping
-	public bool IsJumping { get; private set; } = false;
 
 	public override void _PhysicsProcess(double delta)
 	{
+		// Safety check: stop code if sprite missing
+		if (sprite == null)
+			return;
+
 		Vector2 velocity = Velocity;
-		if (Flip_timer > 0)
-		// needs to be a float to have same data type
-			Flip_timer -= (float)delta;
 
-		// Toggle gravity flip on key press
-		if (Input.IsActionJustPressed("p1_flip") && Flip_timer <= 0)
-		{
-			gravityFlipped = !gravityFlipped;
-			Flip_timer = Ability_cooldown;
+		// Update cooldown timer
+		if (flipTimer > 0)
+			flipTimer -= (float)delta;
 
-			// Visually flip the player vertically
-			Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
-		}
+		// Gravity flip
+		if (Input.IsActionJustPressed("p1_flip") && flipTimer <= 0)
+			FlipGravity();
 
-		// Apply gravity
+		// Apply gravity (flip if inverted)
 		Vector2 gravity = GetGravity();
 		if (gravityFlipped)
 			gravity *= -1;
-
 		velocity += gravity * (float)delta;
 
-		// Handle jump (works whether gravity is flipped or not)
+		// Jump
 		if (Input.IsActionJustPressed("p1_jump") && (IsOnFloor() || IsOnCeiling()))
 		{
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
+			IsJumping = true;
+		}
+		else if (IsOnFloor() || IsOnCeiling())
+		{
+			IsJumping = false;
 		}
 
 		// Horizontal movement
@@ -65,27 +71,36 @@ public partial class Player : CharacterBody2D
 			if (Input.IsActionPressed("p1_sprint"))
 				velocity.X *= 3;
 
-			//  Flip the sprite horizontally based on movement direction
+			// Flip sprite direction
 			if (direction.X < 0)
 				sprite.FlipH = true;
 			else if (direction.X > 0)
 				sprite.FlipH = false;
 
-			//  Play the walk animation if not already playing
+			// Play walk animation
 			if (sprite.Animation != "walk" || !sprite.IsPlaying())
 				sprite.Play("walk");
 		}
 		else
 		{
+			// Slow down when not moving
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 
-			// Stops the walking animation when not moving
+			// Stop walking animation
 			if (sprite.IsPlaying())
 				sprite.Stop();
 		}
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	// --- Flip gravity ---
+	private void FlipGravity()
+	{
+		gravityFlipped = !gravityFlipped;
+		flipTimer = abilityCooldown;
+		Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
 	}
 
 	// --- Key handling ---
