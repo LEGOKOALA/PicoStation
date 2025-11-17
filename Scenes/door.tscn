@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bf4u6vognl0jx"]
 
 [ext_resource type="Script" uid="uid://cri12ignu2aqq" path="res://Scripts/Door.cs" id="1_p0e35"]
-[ext_resource type="Texture2D" uid="uid://kq2mcimi0fik" path="res://Assets/Door.png" id="1_w6aom"]
-[ext_resource type="Texture2D" uid="uid://cacf8dda24vu7" path="res://Assets/pixil-frame-0 (1).png" id="3_fahql"]
+[ext_resource type="Texture2D" uid="uid://c2g0qxa4h0qfl" path="res://Assets/Door.png" id="1_w6aom"]
+[ext_resource type="Texture2D" uid="uid://6mkuko2bmotx" path="res://Assets/pixil-frame-0 (1).png" id="3_fahql"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ab4ky"]
 atlas = ExtResource("1_w6aom")
@@ -36,7 +36,9 @@ radius = 26.0
 height = 94.0
 
 [node name="Door" type="Area2D"]
+collision_mask = 31
 script = ExtResource("1_p0e35")
+RequiredKeyId = "default"
 NextScenePath = "res://Scenes/Level_2.tscn"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
