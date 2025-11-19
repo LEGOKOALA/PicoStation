@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=4 uid="uid://b5tqle5hj8v6l"]
+[gd_scene load_steps=5 format=4 uid="uid://ci1wsvy057sb6"]
 
 [ext_resource type="PackedScene" uid="uid://dd6w8mdnfyf3j" path="res://Scenes/Player1.tscn" id="1_w2ny1"]
 [ext_resource type="Texture2D" uid="uid://qer7qygqrffe" path="res://Assets/PS_Tileset_15.png" id="2_tnxnj"]

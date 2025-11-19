@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4eddfkwnpbso"]
+
+[ext_resource type="Script" uid="uid://dms48psnys8oh" path="res://Scenes/BlackoutCanvas.cs" id="1_ggrdw"]
+
+[node name="Blackout" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackoutCanvas" type="CanvasLayer" parent="." node_paths=PackedStringArray("BlackoutRect")]
+script = ExtResource("1_ggrdw")
+BlackoutRect = NodePath("BlackoutRect")
+
+[node name="BlackoutRect" type="ColorRect" parent="BlackoutCanvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
