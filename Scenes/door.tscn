@@ -36,7 +36,9 @@ radius = 26.0
 height = 94.0
 
 [node name="Door" type="Area2D"]
+collision_mask = 31
 script = ExtResource("1_p0e35")
+RequiredKeyId = "default"
 NextScenePath = "res://Scenes/Level_2.tscn"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

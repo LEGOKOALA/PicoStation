@@ -388,3 +388,5 @@ position = Vector2(267, -84)
 
 [node name="Door" parent="." instance=ExtResource("4_3dryh")]
 position = Vector2(258, 3)
+collision_mask = 1
+RequiredKeyId = ""
