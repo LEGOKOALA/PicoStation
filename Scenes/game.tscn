@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://dmd80bs2g1bxm"]
+[gd_scene load_steps=7 format=4 uid="uid://dmd80bs2g1bxm"]
 
 [ext_resource type="Script" uid="uid://cbkkyxwfs4vmw" path="res://Scripts/Main.cs" id="1_3dryh"]
 [ext_resource type="Texture2D" uid="uid://qer7qygqrffe" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bf4u6vognl0jx" path="res://Scenes/door.tscn" id="4_3dryh"]
-[ext_resource type="PackedScene" uid="uid://ddfitwelgfy41" path="res://Scenes/blackout_manager.tscn" id="5_b2bpf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dryh"]
 texture = ExtResource("2_wrm1d")
@@ -389,5 +388,3 @@ position = Vector2(267, -84)
 
 [node name="Door" parent="." instance=ExtResource("4_3dryh")]
 position = Vector2(258, 3)
-
-[node name="BlackoutManager" parent="." instance=ExtResource("5_b2bpf")]
