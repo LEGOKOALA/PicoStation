@@ -14,7 +14,7 @@ public partial class Door : Area2D
 	private AnimatedSprite2D _animatedDoor;
 	private CollisionShape2D _solidCollider;
 	private bool _isOpen = false;
-	private HashSet<Player1_movement> _playersInside = new();
+	private HashSet<Node> _playersInside = new();
 
 	public override void _Ready()
 	{
@@ -33,41 +33,64 @@ public partial class Door : Area2D
 	}
 
 	private void OnBodyEntered(Node body)
+{
+	// Detect which player entered
+	Player1_movement p1 = body as Player1_movement;
+	Player2_movement p2 = body as Player2_movement;
+	Player3_movement p3 = body as Player3_movement;
+	Player4_movement p4 = body as Player4_movement;
+
+	// If none of the four match, stop
+	if (p1 == null && p2 == null && p3 == null && p4 == null)
+		return;
+
+	// Pick whichever player object is not null
+	Node player = p1 != null ? p1 :
+				  p2 != null ? p2 :
+				  p3 != null ? p3 :
+							   p4;
+
+	_playersInside.Add(player);
+
+	// Door already open? no need to check keys
+	if (_isOpen)
+		return;
+
+	// dynamic lets us call HasKey/ConsumeKey on any player type
+	dynamic dynPlayer = player;
+
+	// No key required OR player has the key
+	if (string.IsNullOrEmpty(RequiredKeyId) || dynPlayer.HasKey(RequiredKeyId))
 	{
-		if (body is not Player1_movement player)
-			return;
-
-		_playersInside.Add(player);
-
-		if (_isOpen)
-			return;
-
-		// Check key or open automatically
-		if (string.IsNullOrEmpty(RequiredKeyId) || player.HasKey(RequiredKeyId))
+		if (!string.IsNullOrEmpty(RequiredKeyId))
 		{
-			if (!string.IsNullOrEmpty(RequiredKeyId))
-			{
-				GD.Print($"Door opened using key: {RequiredKeyId}");
-				player.ConsumeKey(RequiredKeyId);
-			}
-			else if (AutoOpen)
-			{
-				GD.Print("Door opened automatically (no key required).");
-			}
-
-			OpenDoor();
+			GD.Print($"Door opened using key: {RequiredKeyId}");
+			dynPlayer.ConsumeKey(RequiredKeyId);
 		}
-		else
+		else if (AutoOpen)
 		{
-			GD.Print($"You need the {RequiredKeyId} key to open this door!");
+			GD.Print("Door opened automatically.");
 		}
+
+		OpenDoor();
 	}
+	else
+	{
+		GD.Print($"You need the {RequiredKeyId} key to open this door!");
+	}
+}
+
 
 	private void OnBodyExited(Node body)
+{
+	if (body is Player1_movement || 
+		body is Player2_movement || 
+		body is Player3_movement || 
+		body is Player4_movement)
 	{
-		if (body is Player1_movement player)
-			_playersInside.Remove(player);
+		_playersInside.Remove(body);
 	}
+}
 
 	private bool PlayerInside => _playersInside.Count > 0;
 

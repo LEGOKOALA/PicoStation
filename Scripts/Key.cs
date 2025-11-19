@@ -5,7 +5,7 @@ public partial class Key : Area2D
 {
 	[Export] public string KeyId = "default"; // Useful if you have multiple key types
 
-	private void _on_body_entered(CharacterBody2D body)
+	private void _on_body_entered(Node2D body)
 	{
 		if (body is CharacterBody2D player)
 		{

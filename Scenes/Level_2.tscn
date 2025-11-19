@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=4 uid="uid://c7yuv2di3tjhi"]
 
 [ext_resource type="Texture2D" uid="uid://b43i2woldo1w2" path="res://Assets/PS_Tileset_15.png" id="1_vgr4u"]
-[ext_resource type="PackedScene" uid="uid://dd6w8mdnfyf3j" path="res://Scenes/Player.tscn" id="2_ostk4"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_apq5t"]
 [ext_resource type="PackedScene" uid="uid://bf4u6vognl0jx" path="res://Scenes/door.tscn" id="4_apq5t"]
+[ext_resource type="PackedScene" uid="uid://dd6w8mdnfyf3j" path="res://Scenes/Player1.tscn" id="4_wn4i5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_apq5t"]
 texture = ExtResource("1_vgr4u")
@@ -390,5 +390,5 @@ position = Vector2(-9, -6)
 RequiredKeyId = "default"
 NextScenePath = ""
 
-[node name="Player" parent="." instance=ExtResource("2_ostk4")]
-position = Vector2(-173, 17)
+[node name="Player1" parent="." instance=ExtResource("4_wn4i5")]
+position = Vector2(-165, 20)
