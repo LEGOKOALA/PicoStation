@@ -42,7 +42,7 @@ public partial class Player4_movement : CharacterBody2D
 			Brick_timer -= (float)delta;
 
 		// Toggle gravity flip on key press w/ cooldown
-		if (Input.IsActionJustPressed("p4_flip") && Flip_timer <= 0)
+		if (Input.IsActionJustPressed("p4_flip") && Flip_timer <= 0 && brickMode == false)
 		{
 			FlipGravity();
 		}
