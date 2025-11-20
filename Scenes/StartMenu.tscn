@@ -1,10 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://tkb2vo7xump"]
+[gd_scene load_steps=3 format=3 uid="uid://b8h1pd4446sej"]
 
 [ext_resource type="FontFile" uid="uid://mgfqowhl6o51" path="res://Assets/Doto/Doto-VariableFont_ROND,wght.ttf" id="1_dvnd1"]
 [ext_resource type="Script" uid="uid://b8yq7n261r3to" path="res://Scripts/StartMenu.cs" id="1_xtte2"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

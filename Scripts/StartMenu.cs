@@ -5,10 +5,10 @@ public partial class StartMenu : Control
 {
 	private const string GameScenePath = "res://Scenes/Game.tscn";
 	private Button[] buttons;
+	private int focusedIndex = 0;
 
 	public override void _Ready()
 	{
-		// Get buttons
 		buttons = new Button[]
 		{
 			GetNode<Button>("VBoxContainer/StartButton"),
@@ -16,14 +16,14 @@ public partial class StartMenu : Control
 			GetNode<Button>("VBoxContainer/QuitButton")
 		};
 
-		// Make buttons focusable
 		foreach (var btn in buttons)
 			btn.FocusMode = FocusModeEnum.All;
 
 		// Focus the first button
-		buttons[0].GrabFocus();
+		focusedIndex = 0;
+		buttons[focusedIndex].GrabFocus();
 
-		// Connect signals properly
+		// Connect signals using Connect() method
 		buttons[0].Connect("pressed", new Callable(this, nameof(OnStartButtonPressed)));
 		buttons[1].Connect("pressed", new Callable(this, nameof(OnOptionsButtonPressed)));
 		buttons[2].Connect("pressed", new Callable(this, nameof(OnQuitButtonPressed)));
@@ -37,24 +37,15 @@ public partial class StartMenu : Control
 			MoveFocus(-1);
 		else if (@event.IsActionPressed("ui_accept"))
 		{
-			// Get currently focused control
-			var focusedButton = this.GetFocusOwner() as Button;
-			if (focusedButton != null)
-				focusedButton.Pressed(); // manually trigger press
+			// Correct way to trigger button press
+			buttons[focusedIndex].EmitSignal("pressed");
 		}
 	}
 
 	private void MoveFocus(int direction)
 	{
-		var current = this.GetFocusOwner() as Button;
-		int index = Array.IndexOf(buttons, current);
-
-		if (index == -1)
-			index = 0;
-		else
-			index = (index + direction + buttons.Length) % buttons.Length;
-
-		buttons[index].GrabFocus();
+		focusedIndex = (focusedIndex + direction + buttons.Length) % buttons.Length;
+		buttons[focusedIndex].GrabFocus();
 	}
 
 	private void OnStartButtonPressed()
