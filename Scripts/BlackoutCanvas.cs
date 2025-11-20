@@ -7,7 +7,7 @@ public partial class BlackoutCanvas : CanvasLayer
 	[Export] public ColorRect BlackoutRect;
 	[Export] public float BlackoutDuration = 3.5f;
 	[Export] public float MinTimeBetweenBlackouts = 2f;
-	[Export] public float MaxTimeBetweenBlackouts = 8f;
+	[Export] public float MaxTimeBetweenBlackouts = 4f;
 	[Export] public float FadeDuration = 0.5f; // Duration of fade in/out
 
 	private RandomNumberGenerator rng = new RandomNumberGenerator();
