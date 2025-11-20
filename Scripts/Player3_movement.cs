@@ -120,16 +120,16 @@ public partial class Player3_movement : CharacterBody2D
 
 	private void ActivatePlayerInteraction()
 	{
-		SetCollisionMaskValue(3, true);
-		SetCollisionMaskValue(4, true);
-		SetCollisionMaskValue(5, true);
+		SetCollisionLayerValue(1, true);
+		SetCollisionLayerValue(3, true);
+		SetCollisionLayerValue(5, true);
 	}
 	
 	private void DisablePlayerInteraction()
 	{
-		SetCollisionMaskValue(3, false);
-		SetCollisionMaskValue(4, false);
-		SetCollisionMaskValue(5, false);
+		SetCollisionLayerValue(1, false);
+		SetCollisionLayerValue(3, false);
+		SetCollisionLayerValue(5, false);
 	}
 	
 	public void FlipGravity()
