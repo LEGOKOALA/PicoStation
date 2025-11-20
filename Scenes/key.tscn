@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bc1y4hr87c76b" path="res://Assets/c0274e0785c3672 (1).png" id="1_ut0wq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udxw8"]
-size = Vector2(3721.15, 3495.62)
+size = Vector2(3157.34, 3495.62)
 
 [node name="Key" type="Area2D"]
 collision_mask = 31
@@ -16,7 +16,7 @@ scale = Vector2(0.0247044, 0.027027)
 texture = ExtResource("1_ut0wq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-10.5, -15.5)
+position = Vector2(-10, -15.5)
 scale = Vector2(0.00886823, 0.00886824)
 shape = SubResource("RectangleShape2D_udxw8")
 
