@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dfw3p73cvnj6q"]
 
 [ext_resource type="Script" uid="uid://byktx526au81v" path="res://Scripts/Player2_movement.cs" id="1_dn4j3"]
-[ext_resource type="Texture2D" uid="uid://beh3bwpi5xf2a" path="res://Assets/ExampleSprite.png" id="2_kfthp"]
+[ext_resource type="Texture2D" uid="uid://brgb5vosvdd1t" path="res://Assets/ExampleSprite.png" id="2_kfthp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wuut2"]
 atlas = ExtResource("2_kfthp")
@@ -59,7 +59,7 @@ height = 18.0
 
 [node name="Player2" type="CharacterBody2D"]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("1_dn4j3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
