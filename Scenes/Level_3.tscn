@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://ci1wsvy057sb6"]
+[gd_scene load_steps=8 format=4 uid="uid://ci1wsvy057sb6"]
 
 [ext_resource type="Script" uid="uid://cbkkyxwfs4vmw" path="res://Scripts/Main.cs" id="1_ccifb"]
 [ext_resource type="Texture2D" uid="uid://b43i2woldo1w2" path="res://Assets/PS_Tileset_15.png" id="2_tnxnj"]
 [ext_resource type="PackedScene" uid="uid://bf4u6vognl0jx" path="res://Scenes/door.tscn" id="3_s0xyj"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="4_38glg"]
-[ext_resource type="PackedScene" uid="uid://dd6w8mdnfyf3j" path="res://Scenes/Player1.tscn" id="4_s0xyj"]
 [ext_resource type="PackedScene" uid="uid://b41t0wq7fgydd" path="res://Scenes/spike.tscn" id="5_38glg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s0xyj"]
@@ -430,9 +429,6 @@ position = Vector2(20, 347)
 
 [node name="Key" parent="." instance=ExtResource("4_38glg")]
 position = Vector2(550, 375)
-
-[node name="Player1" parent="." instance=ExtResource("4_s0xyj")]
-position = Vector2(-373, 38)
 
 [node name="Spike" parent="." instance=ExtResource("5_38glg")]
 position = Vector2(103, 33)
