@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://tkb2vo7xump"]
+
+[ext_resource type="FontFile" uid="uid://mgfqowhl6o51" path="res://Assets/Doto/Doto-VariableFont_ROND,wght.ttf" id="1_dvnd1"]
+[ext_resource type="Script" uid="uid://b8yq7n261r3to" path="res://Scripts/StartMenu.cs" id="1_xtte2"]
+
+[node name="StartMenu" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xtte2")
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.119
+anchor_right = 0.5
+anchor_bottom = 0.119
+offset_left = -512.0
+offset_top = -80.52
+offset_right = 512.0
+offset_bottom = 79.48
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0.211765, 0, 0.294118, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_dvnd1")
+theme_override_font_sizes/normal_font_size = 130
+text = "PICO STATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -50.5
+offset_right = 35.0
+offset_bottom = 50.5
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_pressed"]
