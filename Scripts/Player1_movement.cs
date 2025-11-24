@@ -14,8 +14,14 @@ public partial class Player1_movement : CharacterBody2D
 	private float Flip_timer = 0.0f;
 	private float Brick_timer = 0.0f;
 	
-	private bool brickMode = false; // tracks if brick is activated
+	//does this instead of brickMode bool
+	public enum BrickModeState
+	{
+		Normal,
+		Brick
+	}
 
+	private BrickModeState brickMode = BrickModeState.Normal;
 
 	// Tracks collected keys
 	private HashSet<string> collectedKeys = new();
@@ -36,31 +42,31 @@ public partial class Player1_movement : CharacterBody2D
 			return;
 
 		Vector2 velocity = Velocity;
+
 		if (Flip_timer > 0)
-		// needs to be a float to have same data type as timers
 			Flip_timer -= (float)delta;
-			Brick_timer -= (float)delta;
+
+		Brick_timer -= (float)delta;
 
 		// Toggle gravity flip on key press w/ cooldown
-		if (Input.IsActionJustPressed("p1_flip") && Flip_timer <= 0 && brickMode == false)
+		if (Input.IsActionJustPressed("p1_flip") && 
+			Flip_timer <= 0 && 
+			brickMode == BrickModeState.Normal)
 		{
 			FlipGravity();
 		}
 
-		// Update cooldown timer
-		if (Flip_timer > 0)
-			Flip_timer -= (float)delta;
-			
-			
 		// Apply gravity (flip if inverted)
 		Vector2 gravity = GetGravity();
 		if (gravityFlipped)
 			gravity *= -1;
+
 		velocity += gravity * (float)delta;
 
-
-		// Handle jump (works whether gravity is flipped or not)
-		if (Input.IsActionJustPressed("p1_jump") && (IsOnFloor() || IsOnCeiling()) && brickMode == false)
+		// Handle jump
+		if (Input.IsActionJustPressed("p1_jump") && 
+			(IsOnFloor() || IsOnCeiling()) && 
+			brickMode == BrickModeState.Normal)
 		{
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
 		}
@@ -68,7 +74,7 @@ public partial class Player1_movement : CharacterBody2D
 		// Horizontal movement
 		Vector2 direction = Input.GetVector("p1_left", "p1_right", "p1_up", "p1_down");
 
-		if (direction != Vector2.Zero && brickMode == false)
+		if (direction != Vector2.Zero && brickMode == BrickModeState.Normal)
 		{
 			velocity.X = direction.X * Speed;
 
@@ -81,39 +87,40 @@ public partial class Player1_movement : CharacterBody2D
 				sprite.FlipH = true;
 			else if (direction.X > 0)
 				sprite.FlipH = false;
-				
-				
+
 			// Play walk animation
 			if (sprite.Animation != "walk" || !sprite.IsPlaying())
 				sprite.Play("walk");
 		}
 		else
 		{
-			// Slow down when not moving
+			// Slow to stop
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 
-			// Stop walking animation
 			if (sprite.IsPlaying())
 				sprite.Stop();
 		}
-		
+
+		// Toggle brick mode
 		if (Input.IsActionJustPressed("p1_brick") && Brick_timer <= 0)
 		{
-			brickMode = !brickMode;
-			Brick_timer = Ability_cooldown;
-			if (brickMode)
+			if (brickMode == BrickModeState.Normal)
 			{
+				//checks brickmode enum
+				brickMode = BrickModeState.Brick;
 				ActivatePlayerInteraction();
 				GD.Print("activate");
 			}
 			else
 			{
+				brickMode = BrickModeState.Normal;
 				DisablePlayerInteraction();
 				GD.Print("deactivate");
 			}
+
+			Brick_timer = Ability_cooldown;
 		}
-		
-		
+
 		Velocity = velocity;
 		MoveAndSlide();
 	}
@@ -124,21 +131,21 @@ public partial class Player1_movement : CharacterBody2D
 		SetCollisionLayerValue(4, true);
 		SetCollisionLayerValue(5, true);
 	}
-	
+
 	private void DisablePlayerInteraction()
 	{
 		SetCollisionLayerValue(3, false);
 		SetCollisionLayerValue(4, false);
 		SetCollisionLayerValue(5, false);
 	}
-	
+
 	public void FlipGravity()
 	{
 		gravityFlipped = !gravityFlipped;
 		Flip_timer = Ability_cooldown;
 		Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
 	}
-	
+
 	// --- Key handling ---
 	public void CollectKey(string keyId)
 	{
