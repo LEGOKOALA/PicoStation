@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b41t0wq7fgydd"]
 
 [ext_resource type="Script" uid="uid://xmercoavomlw" path="res://Scripts/Spike.cs" id="1_1hotg"]
-[ext_resource type="Texture2D" uid="uid://d318y58uce4q5" path="res://Assets/spike-sprite.png" id="2_2mnih"]
+[ext_resource type="Texture2D" uid="uid://cidr8cbe24j6a" path="res://Assets/spike-sprite.png" id="2_2mnih"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5sso0"]
 radius = 7.0
