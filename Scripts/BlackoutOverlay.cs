@@ -4,8 +4,8 @@ using System;
 public partial class BlackoutOverlay : CanvasLayer
 {
 	[Export] private float blackoutDuration = 4f; // seconds screen stays black
-	[Export] private float minWait = 5f;          // minimum seconds between blackouts
-	[Export] private float maxWait = 10f;         // maximum seconds between blackouts
+	[Export] private float minWait = 3f;          // minimum seconds between blackouts
+	[Export] private float maxWait = 8f;         // maximum seconds between blackouts
 
 	private Random _random = new Random();
 	private ColorRect _colorRect;
