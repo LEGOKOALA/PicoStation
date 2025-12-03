@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=4 uid="uid://dbcbmextyu8rt"]
 
-[ext_resource type="Texture2D" uid="uid://bhfgwcpfep5v8" path="res://Assets/PS_Tileset_15.png" id="1_28flt"]
-[ext_resource type="FontFile" uid="uid://mgfqowhl6o51" path="res://Assets/Doto/Doto-VariableFont_ROND,wght.ttf" id="2_48xlc"]
+[ext_resource type="Texture2D" uid="uid://b43i2woldo1w2" path="res://Assets/PS_Tileset_15.png" id="1_28flt"]
+[ext_resource type="FontFile" uid="uid://drxtucge06wlb" path="res://Assets/Doto/Doto-VariableFont_ROND,wght.ttf" id="2_48xlc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_48xlc"]
 texture = ExtResource("1_28flt")
