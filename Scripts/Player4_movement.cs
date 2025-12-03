@@ -148,14 +148,7 @@ public partial class Player4_movement : CharacterBody2D
 			GD.Print($"Already have key: {keyId}");
 	}
 
-	public bool HasKey(string keyId)
-	{
-		return collectedKeys.Contains(keyId);
-	}
-
-	public void ConsumeKey(string keyId)
-	{
-		if (collectedKeys.Remove(keyId))
-			GD.Print($"Used key: {keyId}");
-	}
-}
+public bool HasKey(string keyId)
+{
+	return collectedKeys.Contains(keyId);
+}}
