@@ -13,9 +13,9 @@ public partial class PauseMenu : CanvasLayer
 		vbox = GetNode<VBoxContainer>("VBoxContainer");
 		vbox.MouseFilter = Control.MouseFilterEnum.Stop;
 
-		resumeButton = GetNode<Button>("VBoxContainer/ResumeButton");
-		optionsButton = GetNode<Button>("VBoxContainer/OptionsButton");
-		exitButton = GetNode<Button>("VBoxContainer/ExitButton");
+		resumeButton = GetNode<Button>("VBoxContainer/Resume");
+		optionsButton = GetNode<Button>("VBoxContainer/Options");
+		exitButton = GetNode<Button>("VBoxContainer/Exit");
 
 		resumeButton.Pressed += OnResumePressed;
 		optionsButton.Pressed += OnOptionsPressed;
