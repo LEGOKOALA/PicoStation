@@ -188,3 +188,7 @@ public partial class Player3_movement : CharacterBody2D
 		}
 	}
 }
+public bool HasKey(string keyId)
+{
+	return collectedKeys.Contains(keyId);
+}}

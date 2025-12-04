@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bukf1q3wndq2l"]
+
+[ext_resource type="Script" uid="uid://bo5m8fpo2oqgd" path="res://Scripts/BlackoutOverlay.cs" id="1_m87ap"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackoutOverlay" type="CanvasLayer" parent="."]
+layer = 100
+script = ExtResource("1_m87ap")
+
+[node name="ColorRect" type="ColorRect" parent="BlackoutOverlay"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.905882)
+
+[node name="Timer" type="Timer" parent="BlackoutOverlay"]
+wait_time = 4.0
+one_shot = true
