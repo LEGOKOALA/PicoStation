@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://c7yuv2di3tjhi"]
+[gd_scene load_steps=8 format=4 uid="uid://c7yuv2di3tjhi"]
 
-[ext_resource type="Texture2D" uid="uid://bhfgwcpfep5v8" path="res://Assets/PS_Tileset_15.png" id="1_vgr4u"]
+[ext_resource type="Texture2D" uid="uid://dwd4b1bd13h0c" path="res://Assets/PS_Tileset_15.png" id="1_vgr4u"]
 [ext_resource type="Script" uid="uid://cbkkyxwfs4vmw" path="res://Scripts/Main.cs" id="1_wn4i5"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_apq5t"]
 [ext_resource type="PackedScene" uid="uid://bf4u6vognl0jx" path="res://Scenes/door.tscn" id="4_apq5t"]
+[ext_resource type="Texture2D" uid="uid://53umgn2pxcow" path="res://Assets/pixel-art-spaceship-flying-starry-cosmic-sky-scene-depicting-dazzling-filled-stars-colorful-nebulae-evoking-398455670.webp" id="5_wn4i5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_apq5t"]
 texture = ExtResource("1_vgr4u")
@@ -376,6 +377,7 @@ sources/0 = SubResource("TileSetAtlasSource_apq5t")
 
 [node name="Level_2" type="Node2D"]
 script = ExtResource("1_wn4i5")
+NeedFlashlights = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -389,3 +391,13 @@ position = Vector2(122, -337)
 [node name="Door" parent="." instance=ExtResource("4_apq5t")]
 position = Vector2(233, -4)
 NextScenePath = ""
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -5
+z_as_relative = false
+position = Vector2(44, 42)
+scale = Vector2(2.82437, 3.42372)
+texture = ExtResource("5_wn4i5")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)

@@ -7,37 +7,43 @@ public partial class Player1_movement : CharacterBody2D
 	public const float Speed = 300f;
 	public const float JumpVelocity = 400f;
 
-	private bool gravityFlipped = false; // Tracks whether gravity is flipped
-	private AnimatedSprite2D sprite;     // Reference to the player's sprite
-	
+	private bool gravityFlipped = false;
+	private AnimatedSprite2D sprite;
+
 	private float Ability_cooldown = 1.0f;
 	private float Flip_timer = 0.0f;
 	private float Brick_timer = 0.0f;
-	
-	//does this instead of brickMode bool
-	public enum BrickModeState
-	{
-		Normal,
-		Brick
-	}
 
+	// Light reference
+	private PointLight2D playerLight;
+
+	public enum BrickModeState { Normal, Brick }
 	private BrickModeState brickMode = BrickModeState.Normal;
 
-	// Tracks collected keys
 	private HashSet<string> collectedKeys = new();
-
 
 	public override void _Ready()
 	{
-		// Get the AnimatedSprite2D node
+		// SPRITE
 		sprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
 		if (sprite == null)
-			GD.PrintErr("❌ Could not find AnimatedSprite2D node. Check node name!");
+			GD.PrintErr("❌ Could not find AnimatedSprite2D");
+
+		// FLASHLIGHT
+		playerLight = GetNodeOrNull<PointLight2D>("PointLight2D");
+		if (playerLight == null)
+			GD.PrintErr("❌ Could not find PointLight2D");
+
+		// OFF by default
+		if (playerLight != null)
+			playerLight.Visible = false;
+
+		// Add to players group (important!)
+		AddToGroup("players");
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		// Safety check: stop code if sprite missing
 		if (sprite == null)
 			return;
 
@@ -48,65 +54,59 @@ public partial class Player1_movement : CharacterBody2D
 
 		Brick_timer -= (float)delta;
 
-		// Toggle gravity flip on key press w/ cooldown
-		if (Input.IsActionJustPressed("p1_flip") && 
-			Flip_timer <= 0 && 
+		// Gravity flip
+		if (Input.IsActionJustPressed("p1_flip") &&
+			Flip_timer <= 0 &&
 			brickMode == BrickModeState.Normal)
 		{
 			FlipGravity();
 		}
 
-		// Apply gravity (flip if inverted)
 		Vector2 gravity = GetGravity();
 		if (gravityFlipped)
 			gravity *= -1;
-
 		velocity += gravity * (float)delta;
 
-		// Handle jump
-		if (Input.IsActionJustPressed("p1_jump") && 
-			(IsOnFloor() || IsOnCeiling()) && 
+		// Jump
+		if (Input.IsActionJustPressed("p1_jump") &&
+			(IsOnFloor() || IsOnCeiling()) &&
 			brickMode == BrickModeState.Normal)
 		{
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
 		}
 
-		// Horizontal movement
+		// Movement
 		Vector2 direction = Input.GetVector("p1_left", "p1_right", "p1_up", "p1_down");
 
 		if (direction != Vector2.Zero && brickMode == BrickModeState.Normal)
 		{
 			velocity.X = direction.X * Speed;
 
-			// Sprinting
 			if (Input.IsActionPressed("p1_sprint"))
 				velocity.X *= 1.75f;
 
-			// Flip sprite direction
+			// Sprite flip
 			if (direction.X < 0)
 				sprite.FlipH = true;
 			else if (direction.X > 0)
 				sprite.FlipH = false;
 
-			// Play walk animation
 			if (sprite.Animation != "walk" || !sprite.IsPlaying())
 				sprite.Play("walk");
 		}
 		else
 		{
-			// Slow to stop
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
 
 			if (sprite.IsPlaying())
 				sprite.Stop();
 		}
 
-		// Toggle brick mode
+		// Brick mode
 		if (Input.IsActionJustPressed("p1_brick") && Brick_timer <= 0)
 		{
 			if (brickMode == BrickModeState.Normal)
 			{
-				//checks brickmode enum
 				brickMode = BrickModeState.Brick;
 				ActivatePlayerInteraction();
 				GD.Print("activate");
@@ -143,10 +143,14 @@ public partial class Player1_movement : CharacterBody2D
 	{
 		gravityFlipped = !gravityFlipped;
 		Flip_timer = Ability_cooldown;
-		Scale = new Vector2(Scale.X, gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y));
+
+		Scale = new Vector2(
+			Scale.X,
+			gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y)
+		);
 	}
 
-	// --- Key handling ---
+	// --- Key Handling ---
 	public void CollectKey(string keyId)
 	{
 		if (collectedKeys.Add(keyId))
@@ -155,14 +159,32 @@ public partial class Player1_movement : CharacterBody2D
 			GD.Print($"Already have key: {keyId}");
 	}
 
-	public bool HasKey(string keyId)
-	{
-		return collectedKeys.Contains(keyId);
-	}
+	public bool HasKey(string keyId) => collectedKeys.Contains(keyId);
 
 	public void ConsumeKey(string keyId)
 	{
 		if (collectedKeys.Remove(keyId))
 			GD.Print($"Used key: {keyId}");
+	}
+
+	// ----------------------------------------------
+	// FLASHLIGHT CONTROL (Used by Main.cs)
+	// ----------------------------------------------
+	public void TurnOnFlashlight()
+	{
+		if (playerLight != null)
+		{
+			playerLight.Visible = true;
+			GD.Print("Flashlight turned ON");
+		}
+	}
+
+	public void TurnOffFlashlight()
+	{
+		if (playerLight != null)
+		{
+			playerLight.Visible = false;
+			GD.Print("Flashlight turned OFF");
+		}
 	}
 }

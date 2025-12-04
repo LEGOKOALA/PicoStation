@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://c4vf4yojiqjmi"]
+[gd_scene load_steps=10 format=4 uid="uid://c4vf4yojiqjmi"]
 
 [ext_resource type="Script" uid="uid://cbkkyxwfs4vmw" path="res://Scripts/Main.cs" id="1_3dryh"]
 [ext_resource type="Texture2D" uid="uid://dwd4b1bd13h0c" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bf4u6vognl0jx" path="res://Scenes/door.tscn" id="4_3dryh"]
+[ext_resource type="Texture2D" uid="uid://53umgn2pxcow" path="res://Assets/pixel-art-spaceship-flying-starry-cosmic-sky-scene-depicting-dazzling-filled-stars-colorful-nebulae-evoking-398455670.webp" id="5_wowpa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3dryh"]
 texture = ExtResource("2_wrm1d")
@@ -374,8 +375,21 @@ texture = ExtResource("2_wrm1d")
 physics_layer_0/collision_layer = 31
 sources/0 = SubResource("TileSetAtlasSource_3dryh")
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_3dryh"]
+polygon = PackedVector2Array(16, 0, 16, 16, 64, 16, 64, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_wowpa"]
+polygon = PackedVector2Array(208, -80, 224, -80, 224, 48, 208, 48)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_3dryh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -5
+z_as_relative = false
+position = Vector2(-14, 9)
+scale = Vector2(2.82437, 3.42372)
+texture = ExtResource("5_wowpa")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -388,3 +402,18 @@ position = Vector2(267, -84)
 
 [node name="Door" parent="." instance=ExtResource("4_3dryh")]
 position = Vector2(258, 3)
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_3dryh")
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+position = Vector2(64, -32)
+occluder = SubResource("OccluderPolygon2D_3dryh")
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="."]
+position = Vector2(128, -64)
+occluder = SubResource("OccluderPolygon2D_3dryh")
+
+[node name="LightOccluder2D4" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_wowpa")
+sdf_collision = false
