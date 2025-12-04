@@ -721,8 +721,7 @@ tile_set = SubResource("TileSet_i6g32")
 [node name="Key" parent="." instance=ExtResource("3_3dryh")]
 position = Vector2(267, -84)
 
-[node name="Door" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(258, 3)
-RequiredKeyId = ""
-
 [node name="CanvasLayer" parent="." instance=ExtResource("5_wowpa")]
+
+[node name="Door" parent="." instance=ExtResource("4_3dryh")]
+position = Vector2(256, -6)
