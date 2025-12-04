@@ -4,6 +4,7 @@
 
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
+visible = false
 script = ExtResource("1_nov15")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -55,6 +56,5 @@ size_flags_stretch_ratio = 20.0
 theme_override_font_sizes/font_size = 100
 text = "Exit"
 
-[connection signal="pressed" from="VBoxContainer/Resume" to="." method="OnResumePressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="OnOptionsPressed"]
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="OnExitPressed"]

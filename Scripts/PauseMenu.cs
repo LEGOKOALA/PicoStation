@@ -43,7 +43,10 @@ public partial class PauseMenu : CanvasLayer
 
 	private void OnResumePressed()
 	{
+		GD.Print("resumeButton = " + resumeButton);
+		GD.Print(Visible);
 		TogglePause();
+		GD.Print(Visible);
 	}
 
 	private void OnOptionsPressed()
