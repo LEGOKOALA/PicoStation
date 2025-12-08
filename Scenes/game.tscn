@@ -724,4 +724,4 @@ position = Vector2(267, -84)
 [node name="CanvasLayer" parent="." instance=ExtResource("5_wowpa")]
 
 [node name="Door" parent="." instance=ExtResource("4_3dryh")]
-position = Vector2(256, -6)
+position = Vector2(256, -1)
