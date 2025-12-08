@@ -159,14 +159,6 @@ public partial class Player1_movement : CharacterBody2D
 			GD.Print($"Already have key: {keyId}");
 	}
 
-	public bool HasKey(string keyId) => collectedKeys.Contains(keyId);
-
-	public void ConsumeKey(string keyId)
-	{
-		if (collectedKeys.Remove(keyId))
-			GD.Print($"Used key: {keyId}");
-	}
-
 	// ----------------------------------------------
 	// FLASHLIGHT CONTROL (Used by Main.cs)
 	// ----------------------------------------------
