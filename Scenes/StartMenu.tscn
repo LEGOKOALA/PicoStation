@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bg82tgcgsp8kv"]
+[gd_scene load_steps=4 format=3 uid="uid://c0hposrgudovl"]
 
-[ext_resource type="FontFile" uid="uid://mgfqowhl6o51" path="res://Assets/Doto/Doto-VariableFont_ROND,wght.ttf" id="1_dvnd1"]
+[ext_resource type="FontFile" uid="uid://b6g1b1tje3rdt" path="res://Assets/Doto/Doto-VariableFont_ROND,wght.ttf" id="1_dvnd1"]
 [ext_resource type="Script" uid="uid://b8yq7n261r3to" path="res://Scripts/StartMenu.cs" id="1_xtte2"]
-[ext_resource type="Texture2D" uid="uid://c35aplpenb557" path="res://Assets/Space BG.jpg" id="2_dl0pg"]
+[ext_resource type="Texture2D" uid="uid://cuksm8tvjo3u6" path="res://Assets/Space BG.jpg" id="2_dl0pg"]
 
 [node name="StartMenu" type="Control"]
 layout_mode = 3

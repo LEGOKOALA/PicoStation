@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvwfxmyc5mvnf"]
 
-[ext_resource type="Script" uid="uid://cm18p4r1d4tku" path="res://Scenes/UI.cs" id="1_mgera"]
+[ext_resource type="Script" uid="uid://cm18p4r1d4tku" path="res://Scripts/UI.cs" id="1_mgera"]
 
 [node name="Icons" type="Control"]
 layout_mode = 3
