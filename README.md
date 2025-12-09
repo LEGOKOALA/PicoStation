@@ -1,4 +1,4 @@
-# Pico Station
+# Pico Station (switch to code)
 You are trapped in a space station, and you must cooperate with your compatriats in order to fix the ship and save yourselves! But beware, the shaky gravity has made it easy for your senses to be turned upside down!
 
 Requirements from a hat:
