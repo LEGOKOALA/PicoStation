@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bdyiso6ur6dl1"]
 
-[ext_resource type="Script" path="res://Scripts/BlackoutOverlay.cs" id="1_m87ap"]
+[ext_resource type="Script" uid="uid://bo5m8fpo2oqgd" path="res://Scripts/BlackoutOverlay.cs" id="1_m87ap"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
