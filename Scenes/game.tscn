@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://c4vf4yojiqjmi"]
+[gd_scene load_steps=13 format=4 uid="uid://c4vf4yojiqjmi"]
 
 [ext_resource type="Script" uid="uid://cbkkyxwfs4vmw" path="res://Scripts/Main.cs" id="1_3dryh"]
 [ext_resource type="Texture2D" uid="uid://bhfgwcpfep5v8" path="res://Assets/PS_Tileset_15.png" id="2_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://cam0803m0qstc" path="res://Scenes/key.tscn" id="3_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bf4u6vognl0jx" path="res://Scenes/door.tscn" id="4_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bkklxclkncrxu" path="res://Scenes/PauseMenu.tscn" id="5_wowpa"]
+[ext_resource type="FontFile" uid="uid://mgfqowhl6o51" path="res://Assets/Doto/Doto-VariableFont_ROND,wght.ttf" id="6_i6g32"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wowpa"]
 texture = ExtResource("2_wrm1d")
@@ -724,7 +725,7 @@ tile_set = SubResource("TileSet_1l0tm")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(8, -136)
 scale = Vector2(0.620665, 0.0231511)
-zoom = Vector2(3, 3)
+zoom = Vector2(2, 2)
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AADy/wIAAAAJAAAAAADz/wIAAAAKAAAAAAD0/wIAAAALAAAAAAD1/wIAAAAJAAAAAAD2/wIAAAAKAAAAAAD3/wIAAAALAAAAAAD4/wIAAAAJAAAAAAD5/wIAAAAKAAAAAAD6/wIAAAALAAAAAAD7/wIAAAAJAAAAAAD8/wIAAAAKAAAAAAD9/wIAAAALAAAAAAABAAIAAAAJAAAAAAACAAIAAAAKAAAAAAADAAIAAAALAAAAAAD+/wIAAAAJAAAAAAD//wIAAAAKAAAAAAAAAAIAAAALAAAAAAAEAAIAAAAJAAAAAAAFAAIAAAAKAAAAAAAGAAIAAAALAAAAAAAHAAIAAAAJAAAAAAAIAAIAAAAKAAAAAAAJAAIAAAALAAAAAAAKAAIAAAAJAAAAAAALAAIAAAAKAAAAAAAMAAIAAAALAAAAAAANAAIAAAAJAAAAAAAOAAIAAAAKAAAAAAAPAAIAAAALAAAAAAAQAAIAAAAJAAAAAAARAAIAAAAKAAAAAAASAAIAAAALAAAAAADv/wIAAAAJAAAAAADw/wIAAAAKAAAAAADx/wIAAAALAAAAAADv////AAAGAAAAAADv/wAAAAAGAAEAAADv/wEAAAAGAAIAAADv//z/AAAGAAAAAADv//3/AAAGAAEAAADv//7/AAAGAAIAAADv//n/AAAGAAAAAADv//r/AAAGAAEAAADv//v/AAAGAAIAAADv//b/AAAGAAAAAADv//f/AAAGAAEAAADv//j/AAAGAAIAAADv//P/AAAGAAAAAADv//T/AAAGAAEAAADv//X/AAAGAAIAAADv//D/AAAGAAAAAADv//H/AAAGAAEAAADv//L/AAAGAAIAAADv/+3/AAAGAAAAAADv/+7/AAAGAAEAAADv/+//AAAGAAIAAAASAP//AAAGAAAAAAASAAAAAAAGAAEAAAASAAEAAAAGAAIAAAASAPz/AAAGAAAAAAASAP3/AAAGAAEAAAASAP7/AAAGAAIAAAASAPn/AAAGAAAAAAASAPr/AAAGAAEAAAASAPv/AAAGAAIAAAASAPb/AAAGAAAAAAASAPf/AAAGAAEAAAASAPj/AAAGAAIAAAASAPP/AAAGAAAAAAASAPT/AAAGAAEAAAASAPX/AAAGAAIAAAASAPD/AAAGAAAAAAASAPH/AAAGAAEAAAASAPL/AAAGAAIAAAASAO3/AAAGAAAAAAASAO7/AAAGAAEAAAASAO//AAAGAAIAAADv/+z/AAAJAAAAAADw/+z/AAAKAAAAAADx/+z/AAALAAAAAADy/+z/AAAJAAAAAADz/+z/AAAKAAAAAAD0/+z/AAALAAAAAAD1/+z/AAAJAAAAAAD2/+z/AAAKAAAAAAD3/+z/AAALAAAAAAD4/+z/AAAJAAAAAAD5/+z/AAAKAAAAAAD6/+z/AAALAAAAAAD7/+z/AAAJAAAAAAD8/+z/AAAKAAAAAAD9/+z/AAALAAAAAAD+/+z/AAAJAAAAAAD//+z/AAAKAAAAAAAAAOz/AAALAAAAAAABAOz/AAAJAAAAAAACAOz/AAAKAAAAAAADAOz/AAALAAAAAAAEAOz/AAAJAAAAAAAFAOz/AAAKAAAAAAAGAOz/AAALAAAAAAAHAOz/AAAJAAAAAAAIAOz/AAAKAAAAAAAJAOz/AAALAAAAAAAKAOz/AAAJAAAAAAALAOz/AAAKAAAAAAAMAOz/AAALAAAAAAANAOz/AAAJAAAAAAAOAOz/AAAKAAAAAAAPAOz/AAALAAAAAAAQAOz/AAAJAAAAAAARAOz/AAAKAAAAAAASAOz/AAALAAAAAAABAAAAAAAQAAIAAAACAAAAAAARAAIAAAADAAAAAAASAAIAAAAFAP7/AAAQAAIAAAAGAP7/AAARAAIAAAAHAP7/AAASAAIAAAAJAPz/AAAQAAIAAAAKAPz/AAARAAIAAAALAPz/AAASAAIAAAANAP//AAAGAAAAAAANAAAAAAAGAAEAAAANAAEAAAAGAAIAAAANAP3/AAAGAAIAAAANAP7/AAAGAAIAAAANAPv/AAAGAAAAAAANAPz/AAAGAAEAAAA=")
@@ -753,3 +754,23 @@ occluder = SubResource("OccluderPolygon2D_3dryh")
 position = Vector2(256, -6)
 occluder = SubResource("OccluderPolygon2D_wowpa")
 sdf_collision = false
+
+[node name="Text" type="Node2D" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Text"]
+offset_left = -240.0
+offset_top = -288.0
+offset_right = 256.0
+offset_bottom = -216.0
+theme_override_fonts/normal_font = ExtResource("6_i6g32")
+theme_override_font_sizes/normal_font_size = 20
+text = "Use left stick to move, A to jump, B to Brick, X to flip, Y to enter doors, and RT to sprint."
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Text"]
+offset_left = 128.0
+offset_top = -152.0
+offset_right = 288.0
+offset_bottom = -120.0
+theme_override_fonts/normal_font = ExtResource("6_i6g32")
+theme_override_font_sizes/normal_font_size = 20
+text = "Collect this."
