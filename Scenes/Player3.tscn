@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dunvbr2srxsdg"]
+[gd_scene load_steps=12 format=3 uid="uid://dunvbr2srxsdg"]
 
 [ext_resource type="Script" uid="uid://b3n3462d2j6dn" path="res://Scripts/Player3_movement.cs" id="1_6vmnc"]
 [ext_resource type="Texture2D" uid="uid://8wp3gxr68ir0" path="res://Assets/Player3_sprite.png" id="2_6vmnc"]
+[ext_resource type="Texture2D" uid="uid://b1ujm5mksksie" path="res://Assets/c0274e0785c3672 (1).png" id="3_2x4x8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2x4x8"]
 atlas = ExtResource("2_6vmnc")
@@ -71,3 +72,9 @@ animation = &"walk"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_xcc6r")
+
+[node name="K_3" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(11, -15)
+scale = Vector2(0.0101351, 0.0109798)
+texture = ExtResource("3_2x4x8")

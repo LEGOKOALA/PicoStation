@@ -33,6 +33,7 @@ public partial class Player1_movement : CharacterBody2D
 		sprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
 		if (sprite == null)
 			GD.PrintErr("❌ Could not find AnimatedSprite2D node. Check node name!");
+		keySprite = GetNode<Sprite2D>("K_1");
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -147,13 +148,24 @@ public partial class Player1_movement : CharacterBody2D
 	}
 
 	// --- Key handling ---
-	public void CollectKey(string keyId)
+private Sprite2D keySprite;
+
+public void CollectKey(string keyId)
+{
+	if (collectedKeys.Add(keyId))
 	{
-		if (collectedKeys.Add(keyId))
-			GD.Print($"Collected key: {keyId}");
-		else
-			GD.Print($"Already have key: {keyId}");
+		GD.Print($"Collected key: {keyId}");
 	}
+	else
+	{
+		GD.Print($"Already have key: {keyId}");
+	}
+
+	// Force key icon visible
+	keySprite.Visible = true;
+	keySprite.Modulate = new Color(1f, 1f, 1f, 1f);
+	keySprite.SelfModulate = new Color(1f, 1f, 1f, 1f);
+}
 
 public bool HasKey(string keyId)
 {
@@ -163,5 +175,11 @@ public bool HasKey(string keyId)
 public void ConsumeKey(string keyId)
 {
 	if (collectedKeys.Remove(keyId))
+	{
 		GD.Print($"Used key: {keyId}");
+
+		// Hide the key
+		keySprite.Modulate = new Color(1f, 1f, 1f, 0f);
+		keySprite.SelfModulate = new Color(1f, 1f, 1f, 0f);
+	}
 }}
