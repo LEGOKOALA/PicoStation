@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public partial class Main : Node2D
 {
+	[Export]
+	public bool NeedFlashlights;
+
 	private readonly string[] playerScenes = {
 		"res://Scenes/Player1.tscn",
 		"res://Scenes/Player2.tscn",
@@ -20,9 +23,13 @@ public partial class Main : Node2D
 
 		// --- Always spawn Player 1 (keyboard + controller 0) ---
 		PackedScene player1Scene = GD.Load<PackedScene>(playerScenes[0]);
-		Node2D player1 = (Node2D)player1Scene.Instantiate();
-		player1.Position = new Vector2(-240, 0); // fixed starting point
-		AddChild(player1);
+		Node2D player1Node = (Node2D)player1Scene.Instantiate();
+		player1Node.Position = new Vector2(-240, 0); // fixed starting point
+		AddChild(player1Node);
+
+		// Turn on flashlight if needed
+		if (NeedFlashlights && player1Node is Player1_movement p1)
+			p1.TurnOnFlashlight();
 
 		// --- Determine how many other players should spawn ---
 		int totalPlayers = Math.Min(connectedJoypads.Count, MAX_PLAYERS);
@@ -41,12 +48,29 @@ public partial class Main : Node2D
 			if (sceneIndex >= MAX_PLAYERS) break;
 
 			PackedScene scene = GD.Load<PackedScene>(playerScenes[sceneIndex]);
-			Node2D player = (Node2D)scene.Instantiate();
+			Node2D playerNode = (Node2D)scene.Instantiate();
 
 			// evenly space out between -240 and -8
-			player.Position = new Vector2(startX + spacing * sceneIndex, 0);
+			playerNode.Position = new Vector2(startX + spacing * sceneIndex, 0);
+			AddChild(playerNode);
 
-			AddChild(player);
+			// Turn on flashlight if needed
+			if (NeedFlashlights)
+			{
+				switch (sceneIndex)
+				{
+					case 1:
+						if (playerNode is Player2_movement p2) p2.TurnOnFlashlight();
+						break;
+					case 2:
+						if (playerNode is Player3_movement p3) p3.TurnOnFlashlight();
+						break;
+					case 3:
+						if (playerNode is Player4_movement p4) p4.TurnOnFlashlight();
+						break;
+				}
+			}
+
 			sceneIndex++;
 		}
 	}
