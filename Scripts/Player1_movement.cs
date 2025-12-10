@@ -2,7 +2,22 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Player1_movement : CharacterBody2D
+// ----------------------------------------------
+// ABSTRACT BASE CLASS (added as requested)
+// ----------------------------------------------
+public abstract partial class BasePlayer : CharacterBody2D
+{
+	// Shared field
+	public bool HasFlashlight = false;
+
+	// Abstract method that all players must implement
+	public abstract void TurnOnFlashlight();
+}
+
+// ----------------------------------------------
+// PLAYER 1 CLASS — now inherits from BasePlayer
+// ----------------------------------------------
+public partial class Player1_movement : BasePlayer
 {
 	public const float Speed = 300f;
 	public const float JumpVelocity = 400f;
@@ -161,12 +176,14 @@ public partial class Player1_movement : CharacterBody2D
 
 	// ----------------------------------------------
 	// FLASHLIGHT CONTROL (Used by Main.cs)
+	// Abstract method override
 	// ----------------------------------------------
-	public void TurnOnFlashlight()
+	public override void TurnOnFlashlight()
 	{
 		if (playerLight != null)
 		{
 			playerLight.Visible = true;
+			HasFlashlight = true;
 			GD.Print("Flashlight turned ON");
 		}
 	}
@@ -176,16 +193,19 @@ public partial class Player1_movement : CharacterBody2D
 		if (playerLight != null)
 		{
 			playerLight.Visible = false;
+			HasFlashlight = false;
 			GD.Print("Flashlight turned OFF");
 		}
 	}
-public bool HasKey(string keyId)
-{
-	return collectedKeys.Contains(keyId);
-}
 
-public void ConsumeKey(string keyId)
-{
-	if (collectedKeys.Remove(keyId))
-		GD.Print($"Used key: {keyId}");
-}}
+	public bool HasKey(string keyId)
+	{
+		return collectedKeys.Contains(keyId);
+	}
+
+	public void ConsumeKey(string keyId)
+	{
+		if (collectedKeys.Remove(keyId))
+			GD.Print($"Used key: {keyId}");
+	}
+}
