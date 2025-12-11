@@ -3,19 +3,17 @@ using System;
 using System.Collections.Generic;
 
 // ----------------------------------------------
-// ABSTRACT BASE CLASS (added as requested)
+// ABSTRACT BASE CLASS
 // ----------------------------------------------
 public abstract partial class BasePlayer : CharacterBody2D
 {
-	// Shared field
 	public bool HasFlashlight = false;
 
-	// Abstract method that all players must implement
 	public abstract void TurnOnFlashlight();
 }
 
 // ----------------------------------------------
-// PLAYER 1 CLASS — now inherits from BasePlayer
+// PLAYER 1 CLASS — inherits from BasePlayer
 // ----------------------------------------------
 public partial class Player1_movement : BasePlayer
 {
@@ -29,7 +27,6 @@ public partial class Player1_movement : BasePlayer
 	private float Flip_timer = 0.0f;
 	private float Brick_timer = 0.0f;
 
-	// Light reference
 	private PointLight2D playerLight;
 
 	public enum BrickModeState { Normal, Brick }
@@ -37,24 +34,23 @@ public partial class Player1_movement : BasePlayer
 
 	private HashSet<string> collectedKeys = new();
 
+	private Sprite2D keySprite;
+
 	public override void _Ready()
 	{
-		// SPRITE
 		sprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
 		if (sprite == null)
-			GD.PrintErr("❌ Could not find AnimatedSprite2D node. Check node name!");
+			GD.PrintErr("❌ Could not find AnimatedSprite2D");
+
 		keySprite = GetNode<Sprite2D>("K_1");
 
-		// FLASHLIGHT
 		playerLight = GetNodeOrNull<PointLight2D>("PointLight2D");
 		if (playerLight == null)
 			GD.PrintErr("❌ Could not find PointLight2D");
 
-		// OFF by default
 		if (playerLight != null)
 			playerLight.Visible = false;
 
-		// Add to players group (important!)
 		AddToGroup("players");
 	}
 
@@ -70,7 +66,6 @@ public partial class Player1_movement : BasePlayer
 
 		Brick_timer -= (float)delta;
 
-		// Gravity flip
 		if (Input.IsActionJustPressed("p1_flip") &&
 			Flip_timer <= 0 &&
 			brickMode == BrickModeState.Normal)
@@ -81,9 +76,9 @@ public partial class Player1_movement : BasePlayer
 		Vector2 gravity = GetGravity();
 		if (gravityFlipped)
 			gravity *= -1;
+
 		velocity += gravity * (float)delta;
 
-		// Jump
 		if (Input.IsActionJustPressed("p1_jump") &&
 			(IsOnFloor() || IsOnCeiling()) &&
 			brickMode == BrickModeState.Normal)
@@ -91,7 +86,6 @@ public partial class Player1_movement : BasePlayer
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
 		}
 
-		// Movement
 		Vector2 direction = Input.GetVector("p1_left", "p1_right", "p1_up", "p1_down");
 
 		if (direction != Vector2.Zero && brickMode == BrickModeState.Normal)
@@ -101,7 +95,6 @@ public partial class Player1_movement : BasePlayer
 			if (Input.IsActionPressed("p1_sprint"))
 				velocity.X *= 1.75f;
 
-			// Sprite flip
 			if (direction.X < 0)
 				sprite.FlipH = true;
 			else if (direction.X > 0)
@@ -118,7 +111,6 @@ public partial class Player1_movement : BasePlayer
 				sprite.Stop();
 		}
 
-		// Brick mode
 		if (Input.IsActionJustPressed("p1_brick") && Brick_timer <= 0)
 		{
 			if (brickMode == BrickModeState.Normal)
@@ -166,59 +158,19 @@ public partial class Player1_movement : BasePlayer
 		);
 	}
 
-	// --- Key handling ---
-private Sprite2D keySprite;
-
-public void CollectKey(string keyId)
-{
-	if (collectedKeys.Add(keyId))
+	// -------------------------
+	// KEY HANDLING
+	// -------------------------
+	public void CollectKey(string keyId)
 	{
-		GD.Print($"Collected key: {keyId}");
-	}
-	else
-	{
-		GD.Print($"Already have key: {keyId}");
-	}
+		if (collectedKeys.Add(keyId))
+			GD.Print($"Collected key: {keyId}");
+		else
+			GD.Print($"Already have key: {keyId}");
 
-	// Force key icon visible
-	keySprite.Visible = true;
-	keySprite.Modulate = new Color(1f, 1f, 1f, 1f);
-	keySprite.SelfModulate = new Color(1f, 1f, 1f, 1f);
-}
-
-	// ----------------------------------------------
-	// FLASHLIGHT CONTROL (Used by Main.cs)
-	// Abstract method override
-	// ----------------------------------------------
-	public override void TurnOnFlashlight()
-	{
-		if (playerLight != null)
-		{
-			playerLight.Visible = true;
-			HasFlashlight = true;
-			GD.Print("Flashlight turned ON");
-		}
-	}
-
-public void ConsumeKey(string keyId)
-{
-	if (collectedKeys.Remove(keyId))
-	{
-		GD.Print($"Used key: {keyId}");
-
-		// Hide the key
-		keySprite.Modulate = new Color(1f, 1f, 1f, 0f);
-		keySprite.SelfModulate = new Color(1f, 1f, 1f, 0f);
-	}
-}}
-	public void TurnOffFlashlight()
-	{
-		if (playerLight != null)
-		{
-			playerLight.Visible = false;
-			HasFlashlight = false;
-			GD.Print("Flashlight turned OFF");
-		}
+		keySprite.Visible = true;
+		keySprite.Modulate = Colors.White;
+		keySprite.SelfModulate = Colors.White;
 	}
 
 	public bool HasKey(string keyId)
@@ -229,6 +181,31 @@ public void ConsumeKey(string keyId)
 	public void ConsumeKey(string keyId)
 	{
 		if (collectedKeys.Remove(keyId))
+		{
 			GD.Print($"Used key: {keyId}");
+			keySprite.Modulate = new Color(1f,1f,1f,0f);
+			keySprite.SelfModulate = new Color(1f,1f,1f,0f);
+		}
 	}
-}
+
+	// -------------------------
+	// FLASHLIGHT
+	// -------------------------
+	public override void TurnOnFlashlight()
+	{
+		if (playerLight != null)
+		{
+			playerLight.Visible = true;
+			HasFlashlight = true;
+			GD.Print("Flashlight turned ON");
+		}
+	}
+	public void TurnOffFlashlight()
+	{
+		if (playerLight != null)
+		{
+			} playerLight.Visible = false;
+			HasFlashlight = false;
+			GD.Print("Flashlight turned OFF");
+		}
+	}

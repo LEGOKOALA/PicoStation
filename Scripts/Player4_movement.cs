@@ -14,7 +14,6 @@ public partial class Player4_movement : CharacterBody2D
 	private float Flip_timer = 0.0f;
 	private float Brick_timer = 0.0f;
 
-	// Light reference
 	private PointLight2D playerLight;
 
 	public enum BrickModeState { Normal, Brick }
@@ -22,24 +21,23 @@ public partial class Player4_movement : CharacterBody2D
 
 	private HashSet<string> collectedKeys = new();
 
+	private Sprite2D K_4;
+
 	public override void _Ready()
 	{
-		// SPRITE
 		sprite = GetNodeOrNull<AnimatedSprite2D>("AnimatedSprite2D");
 		if (sprite == null)
-			GD.PrintErr("❌ Could not find AnimatedSprite2D node. Check node name!");
-				K_4 = GetNode<Sprite2D>("K_4");
+			GD.PrintErr("❌ Could not find AnimatedSprite2D node!");
 
-		// FLASHLIGHT
+		K_4 = GetNode<Sprite2D>("K_4");
+
 		playerLight = GetNodeOrNull<PointLight2D>("PointLight2D");
 		if (playerLight == null)
 			GD.PrintErr("❌ Could not find PointLight2D");
 
-		// OFF by default
 		if (playerLight != null)
 			playerLight.Visible = false;
 
-		// Add to players group
 		AddToGroup("players");
 	}
 
@@ -55,7 +53,6 @@ public partial class Player4_movement : CharacterBody2D
 
 		Brick_timer -= (float)delta;
 
-		// Gravity flip
 		if (Input.IsActionJustPressed("p4_flip") &&
 			Flip_timer <= 0 &&
 			brickMode == BrickModeState.Normal)
@@ -66,9 +63,9 @@ public partial class Player4_movement : CharacterBody2D
 		Vector2 gravity = GetGravity();
 		if (gravityFlipped)
 			gravity *= -1;
+
 		velocity += gravity * (float)delta;
 
-		// Jump
 		if (Input.IsActionJustPressed("p4_jump") &&
 			(IsOnFloor() || IsOnCeiling()) &&
 			brickMode == BrickModeState.Normal)
@@ -76,7 +73,6 @@ public partial class Player4_movement : CharacterBody2D
 			velocity.Y = gravityFlipped ? JumpVelocity : -JumpVelocity;
 		}
 
-		// Movement
 		Vector2 direction = Input.GetVector("p4_left", "p4_right", "p4_up", "p4_down");
 
 		if (direction != Vector2.Zero && brickMode == BrickModeState.Normal)
@@ -86,7 +82,6 @@ public partial class Player4_movement : CharacterBody2D
 			if (Input.IsActionPressed("p4_sprint"))
 				velocity.X *= 1.75f;
 
-			// Sprite flip
 			if (direction.X < 0)
 				sprite.FlipH = true;
 			else if (direction.X > 0)
@@ -103,7 +98,6 @@ public partial class Player4_movement : CharacterBody2D
 				sprite.Stop();
 		}
 
-		// Brick mode
 		if (Input.IsActionJustPressed("p4_brick") && Brick_timer <= 0)
 		{
 			if (brickMode == BrickModeState.Normal)
@@ -150,47 +144,40 @@ public partial class Player4_movement : CharacterBody2D
 			gravityFlipped ? -Mathf.Abs(Scale.Y) : Mathf.Abs(Scale.Y)
 		);
 	}
-	
-	// --- Key handling ---
-private Sprite2D K_4;
 
-public void CollectKey(string keyId)
-{
-	if (collectedKeys.Add(keyId))
+	// -------------------------
+	// KEY HANDLING
+	// -------------------------
+	public void CollectKey(string keyId)
 	{
-		GD.Print($"Collected key: {keyId}");
+		if (collectedKeys.Add(keyId))
+			GD.Print($"Collected key: {keyId}");
+		else
+			GD.Print($"Already have key: {keyId}");
+
+		K_4.Visible = true;
+		K_4.Modulate = Colors.White;
+		K_4.SelfModulate = Colors.White;
 	}
-	else
+
+	public bool HasKey(string keyId)
 	{
-		GD.Print($"Already have key: {keyId}");
+		return collectedKeys.Contains(keyId);
 	}
 
-	// Force key icon visible
-	K_4.Visible = true;
-	K_4.Modulate = new Color(1f, 1f, 1f, 1f);
-	K_4.SelfModulate = new Color(1f, 1f, 1f, 1f);
-}
-
-public bool HasKey(string keyId)
-{
-	return collectedKeys.Contains(keyId);
-}
-
-public void ConsumeKey(string keyId)
-{
-	if (collectedKeys.Remove(keyId))
+	public void ConsumeKey(string keyId)
 	{
-		GD.Print($"Used key: {keyId}");
-
-		// Hide the key
-		K_4.Modulate = new Color(1f, 1f, 1f, 0f);
-		K_4.SelfModulate = new Color(1f, 1f, 1f, 0f);
+		if (collectedKeys.Remove(keyId))
+		{
+			GD.Print($"Used key: {keyId}");
+			K_4.Modulate = new Color(1f, 1f, 1f, 0f);
+			K_4.SelfModulate = new Color(1f, 1f, 1f, 0f);
+		}
 	}
-}}
 
-	// ----------------------------------------------
-	// FLASHLIGHT CONTROL
-	// ----------------------------------------------
+	// -------------------------
+	// FLASHLIGHT
+	// -------------------------
 	public void TurnOnFlashlight()
 	{
 		if (playerLight != null)
