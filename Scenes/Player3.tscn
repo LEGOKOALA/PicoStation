@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dunvbr2srxsdg"]
+[gd_scene load_steps=12 format=3 uid="uid://dunvbr2srxsdg"]
 
 [ext_resource type="Script" uid="uid://b3n3462d2j6dn" path="res://Scripts/Player3_movement.cs" id="1_6vmnc"]
-[ext_resource type="Texture2D" uid="uid://chltrlew13sqo" path="res://Assets/Player3_sprite.png" id="2_6vmnc"]
+[ext_resource type="Texture2D" uid="uid://8wp3gxr68ir0" path="res://Assets/Player3_sprite.png" id="2_6vmnc"]
+[ext_resource type="Texture2D" uid="uid://b1ujm5mksksie" path="res://Assets/c0274e0785c3672 (1).png" id="3_2x4x8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2x4x8"]
 atlas = ExtResource("2_6vmnc")
@@ -57,18 +58,6 @@ animations = [{
 radius = 7.0
 height = 18.0
 
-[sub_resource type="Gradient" id="Gradient_6vmnc"]
-offsets = PackedFloat32Array(0.00325733, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0.603922, 0.603922, 0.603922, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2x4x8"]
-gradient = SubResource("Gradient_6vmnc")
-width = 100
-height = 100
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 0)
-
 [node name="Player3" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 8
@@ -84,13 +73,8 @@ animation = &"walk"
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_xcc6r")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-energy = 2.75
-blend_mode = 2
-range_z_min = -2000
-range_z_max = 2000
-shadow_enabled = true
-shadow_color = Color(0.310714, 0.289925, 0.295239, 0)
-shadow_filter = 2
-shadow_filter_smooth = 32.5
-texture = SubResource("GradientTexture2D_2x4x8")
+[node name="K_3" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(11, -15)
+scale = Vector2(0.0101351, 0.0109798)
+texture = ExtResource("3_2x4x8")
